@@ -10,7 +10,7 @@ namespace Memeio.API.Models
         public User User { get; set; } //This will act as the author
         public int UserId { get; set; }
         public DateTime DatePosted { get; set; }
-        public string Photo_Comments_Serialized { get; set; }
+        public ICollection<Comment> Comments { get; set; }
         public int Likes { get; set; }
         public int Dislikes { get; set; }
         public int Favorites { get; set; }

@@ -13,7 +13,7 @@ namespace Memeio.API.Models
         public DateTime LastActive { get; set; }
         public string PhotoUrl { get; set; }
         public string Introduction { get; set; }
-        public string User_Comments_Serialized { get; set; }
+        public ICollection<Comment> Comments { get; set; }
         public ICollection<Photo> Posts { get; set; }
         public int Followers { get; set; }
         public int Follows { get; set; }

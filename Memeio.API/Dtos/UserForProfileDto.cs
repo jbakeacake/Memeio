@@ -12,7 +12,7 @@ namespace Memeio.API.Dtos
         public DateTime LastActive { get; set; }
         public string PhotoUrl { get; set; }
         public string Introduction { get; set; }
-        public ICollection<string> User_Comments_List { get; set; }
+        public ICollection<Comment> Comments { get; set; }
         public ICollection<PhotosForProfileDto> Posts { get; set; }
         public int Followers { get; set; }
         public int Follows { get; set; }
