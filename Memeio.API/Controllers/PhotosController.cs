@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using CloudinaryDotNet;
@@ -9,7 +10,7 @@ using Microsoft.Extensions.Options;
 
 namespace Memeio.API.Controllers
 {
-    [Route("api/gallery/")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class PhotosController : ControllerBase
     {
@@ -41,5 +42,14 @@ namespace Memeio.API.Controllers
 
             return Ok(photo);
         }
+
+        [HttpGet("gallery")]
+        public async Task<IActionResult> GetPhotos()
+        {
+            var photosFromRepo = await _repo.GetPhotos();
+            var photosToReturn = _mapper.Map<IEnumerable<PhotosForGalleryDto>>(photosFromRepo);
+            return Ok(photosToReturn);
+        }
+
     }
 }

@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Memeio.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200526181042_AddedCommentCollection")]
-    partial class AddedCommentCollection
+    [Migration("20200526181542_AddedCommentsTbl")]
+    partial class AddedCommentsTbl
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,7 +42,7 @@ namespace Memeio.API.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comment");
+                    b.ToTable("Comments_Tbl");
                 });
 
             modelBuilder.Entity("Memeio.API.Models.Photo", b =>

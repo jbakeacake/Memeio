@@ -40,7 +40,7 @@ namespace Memeio.API.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comment");
+                    b.ToTable("Comments_Tbl");
                 });
 
             modelBuilder.Entity("Memeio.API.Models.Photo", b =>

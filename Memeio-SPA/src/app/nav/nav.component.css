@@ -1,0 +1,46 @@
+@media (min-width: 567px) {
+    .abs-center-x {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+.white-icon {
+    color: white;
+}
+
+.black-border {
+    text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
+}
+
+.border-right {
+    border-right: 1px solid grey;
+}
+
+.nav-link {
+    padding-top: 0%;
+    padding-bottom: 0%;
+    text-shadow: none;
+}
+
+img {
+    max-height: 27px;
+    border: 2px solid lightgray;
+    display: inline;
+}
+
+li {
+    color:rgb(255, 255, 255);
+    text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
+}
+
+li:hover {
+    color: rgb(160, 160, 160);
+    text-shadow: none;
+}
+
+li:active {
+    color: rgb(160, 160, 160);
+    text-shadow: none;
+}

@@ -8,9 +8,10 @@ namespace Memeio.API.Helpers
     {
         public AutoMapperProfiles()
         {
-
             CreateMap<Photo, PhotosForGalleryDto>()
-                .ForMember(dest => dest.Author, opt => opt.MapFrom(src => src.User.Username));
+                .ForMember(dest => dest.Author,
+                opt => opt.MapFrom(src => src.User.Username));
+            CreateMap<User, UserForSearchDto>();
         }
     }
 }

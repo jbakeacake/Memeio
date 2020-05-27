@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Memeio.API.Models;
 using Microsoft.EntityFrameworkCore;
@@ -37,6 +38,37 @@ namespace Memeio.API.Data
         {
             var photo = await _context.Photos_Tbl.FirstOrDefaultAsync(p => p.Id == id);
             return photo;
+        }
+
+        /*
+        GetPhotos() : Task<IEnumerable<Photo>>
+
+        Returns the entire collection of photos.
+
+        Return : Task<IEnumerable<Photo>> >> List of ALL photos from the database
+
+        */
+        public async Task<IEnumerable<Photo>> GetPhotos()
+        {
+            var photos = await _context.Photos_Tbl.ToListAsync();
+            return photos;
+        }
+
+        /*
+        GetUserPhotos(id : int) : Task<IEnumerable<Photo>>
+
+        Returns the collection of photos made by a specific user.
+
+        id : int >> The Id of the user
+
+        Return : Task<IEnumerable<Photo>> >> The collection of photos specific to a user.
+        */
+        public async Task<IEnumerable<Photo>> GetUserPhotos(int id)
+        {
+            var photos = await _context.Photos_Tbl
+                .Where(p => p.UserId == id)
+                .ToListAsync();
+            return photos;
         }
 
         /*

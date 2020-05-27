@@ -12,5 +12,7 @@ namespace Memeio.API.Data
         Task<User> GetUser(int id);
         Task<IEnumerable<User>> GetUsers();
         Task<Photo> GetPhoto(int id);
+        Task<IEnumerable<Photo>> GetPhotos();
+        Task<IEnumerable<Photo>> GetUserPhotos(int id);
     }
 }

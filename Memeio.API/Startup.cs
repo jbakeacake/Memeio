@@ -36,6 +36,7 @@ namespace Memeio.API
             services.AddAutoMapper(typeof(MemeioRepository).Assembly);
 
             services.AddScoped<IMemeioRepository, MemeioRepository>();
+            services.AddScoped<IAuthRepository, AuthRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

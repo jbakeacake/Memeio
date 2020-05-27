@@ -8,5 +8,6 @@ namespace Memeio.API.Data
         public DataContext(DbContextOptions<DataContext> options) : base(options) {}
         public DbSet<User> Users_Tbl { get; set; }
         public DbSet<Photo> Photos_Tbl { get; set; }
+        public DbSet<Comment> Comments_Tbl { get; set; }
     }
 }

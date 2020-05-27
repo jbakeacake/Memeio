@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Memeio.API.Migrations
 {
-    public partial class AddedCommentCollection : Migration
+    public partial class AddedCommentsTbl : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -53,7 +53,7 @@ namespace Memeio.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Comment",
+                name: "Comments_Tbl",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -65,15 +65,15 @@ namespace Memeio.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Comment", x => x.Id);
+                    table.PrimaryKey("PK_Comments_Tbl", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Comment_Photos_Tbl_PostId",
+                        name: "FK_Comments_Tbl_Photos_Tbl_PostId",
                         column: x => x.PostId,
                         principalTable: "Photos_Tbl",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Comment_Users_Tbl_UserId",
+                        name: "FK_Comments_Tbl_Users_Tbl_UserId",
                         column: x => x.UserId,
                         principalTable: "Users_Tbl",
                         principalColumn: "Id",
@@ -81,13 +81,13 @@ namespace Memeio.API.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comment_PostId",
-                table: "Comment",
+                name: "IX_Comments_Tbl_PostId",
+                table: "Comments_Tbl",
                 column: "PostId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comment_UserId",
-                table: "Comment",
+                name: "IX_Comments_Tbl_UserId",
+                table: "Comments_Tbl",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -99,7 +99,7 @@ namespace Memeio.API.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Comment");
+                name: "Comments_Tbl");
 
             migrationBuilder.DropTable(
                 name: "Photos_Tbl");
