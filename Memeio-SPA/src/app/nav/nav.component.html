@@ -13,20 +13,8 @@
       </a>
     </button>
 
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-toggle="collapse"
-      data-target="#navbarsExample07XL"
-      aria-controls="navbarsExample07XL"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarsExample07XL">
-      <form class="form abs-center-x my-2 my-md-0">
+    <div class="mb-4 pb-2">
+      <form class="form abs-center-x">
         <input
           class="form-control"
           type="text"
@@ -34,6 +22,21 @@
           aria-label="Search"
         />
       </form>
+    </div>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#Nav_Elements"
+      aria-controls="Nav_Elements"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- Collapsable Elements -->
+    <div class="collapse navbar-collapse" id="Nav_Elements">
       <!-- Register Element if not logged in -->
       <ul *ngIf="!loggedIn()" class="navbar-nav ml-auto text-center">
         <li class="nav-item">
@@ -47,41 +50,50 @@
       </ul>
 
       <!-- Show Logged In Nav Elements -->
-      <ul *ngIf="loggedIn()" class="navbar-nav mx-4 text-center">
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/gallery']">Meme Gallery</a>
+      <ul *ngIf="loggedIn()" class="navbar-nav text-center">
+        <li class="nav-item btn" [routerLink]="['/gallery']">
+          <i class="fa fa-map fa-2x"></i>
+          <a class="nav-link">Meme Gallery</a>
         </li>
       </ul>
       <ul *ngIf="loggedIn()" class="navbar-nav ml-auto text-center">
-        <li class="nav-item">
+        <li class="nav-item btn" [routerLink]="['/home']">
           <i class="fa fa-home fa-2x"></i>
           <a class="nav-link">Home</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item btn">
           <i class="fa fa-archive fa-2x"></i>
           <a class="nav-link">Archive</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item btn">
           <i class="fa fa-bell fa-2x"></i>
           <a class="nav-link">Notifications</a>
         </li>
-        <li class="nav-item dropdown">
-          <img
-            src="https://res-console.cloudinary.com/jbakeacake/thumbnails/v1/image/upload/v1590411235/Zm1ycmlzenk4OGRhY214bDdmMm0=/preview"
-            class="rounded-circle"
-          />
-          <a
-            class="nav-link dropdown-toggle"
-            id="dropdown07XL"
-            data-toggle="dropdown"
-            aria-expanded="false"
+        <li class="nav-item dropdown btn" dropdown>
+          <div dropdownToggle>
+            <img
+              src="https://res-console.cloudinary.com/jbakeacake/thumbnails/v1/image/upload/v1590411235/Zm1ycmlzenk4OGRhY214bDdmMm0=/preview"
+              class="rounded-circle"
+            />
+            <a
+              class="nav-link dropdown-toggle"
+              id="Profile_Dropdown"
+              data-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Me
+            </a>
+          </div>
+          <div
+            class="dropdown-menu"
+            *dropdownMenu
+            aria-labelledby="Profile_Dropdown"
           >
-            Me
-          </a>
-          <div class="dropdown-menu" aria-labelledby="dropdown07XL">
-            <a class="dropdown-item" href="#">Profile</a>
-            <a class="dropdown-item" href="#">My Content</a>
-            <a class="dropdown-item" href="#">Logout</a>
+            <div class="nav-link">
+              <a class="dropdown-item">Profile</a>
+              <a class="dropdown-item">My Content</a>
+              <a class="dropdown-item" (click)="logout()">Logout</a>
+            </div>
           </div>
         </li>
       </ul>

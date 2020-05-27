@@ -44,3 +44,7 @@ li:active {
     color: rgb(160, 160, 160);
     text-shadow: none;
 }
+
+.dropdown-item:hover {
+    color: white;
+}

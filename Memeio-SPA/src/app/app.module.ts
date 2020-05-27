@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { JwtModule } from '@auth0/angular-jwt';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 
@@ -15,6 +16,9 @@ import { NavComponent } from './nav/nav.component';
 import { GalleryCommentsComponent } from './Gallery/Gallery-main/Gallery-comments/Gallery-Comments.component';
 import { GalleryMainComponent } from './Gallery/Gallery-main/Gallery-main.component';
 import { RegisterComponent } from './register/register.component';
+import { AuthService } from './_services/auth.service';
+import { AlertifyService } from './_services/alertify.service';
+import { ErrorIntercepterProvider } from './_services/error.interceptor';
 
 @NgModule({
    declarations: [
@@ -28,12 +32,17 @@ import { RegisterComponent } from './register/register.component';
    imports: [
       HttpClientModule,
       FormsModule,
-      BsDropdownModule,
+      BrowserAnimationsModule,
+      BsDropdownModule.forRoot(),
       JwtModule,
       BrowserModule,
       RouterModule.forRoot(appRoutes)
    ],
-   providers: [],
+   providers: [
+      AuthService,
+      AlertifyService,
+      ErrorIntercepterProvider
+   ],
    bootstrap: [
       AppComponent
    ]

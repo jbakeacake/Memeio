@@ -14,6 +14,12 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using AutoMapper;
 using Memeio.API.Helpers;
+using System.Net;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace Memeio.API
 {
@@ -35,8 +41,21 @@ namespace Memeio.API
             services.AddCors(); // Integrate Cors so we can communicate our API with our SPA
             services.AddAutoMapper(typeof(MemeioRepository).Assembly);
 
+            //Add our repos to our services
             services.AddScoped<IMemeioRepository, MemeioRepository>();
             services.AddScoped<IAuthRepository, AuthRepository>();
+
+            //Add authentication middleware to guard certain resources
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options => {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +64,21 @@ namespace Memeio.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                //Add middleware for globally catching exceptions
+                app.UseExceptionHandler(builder => {
+                    builder.Run(async context => { //context is related to HTTP Request/Response
+                        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError; // Code to return when handling an exception (code 500)
+                        var err = context.Features.Get<IExceptionHandlerFeature>(); //store details of the error
+                        if (err != null) // if there's any error
+                        {
+                            context.Response.AddApplicationError(err.Error.Message); // Adds a new header into HTTP response to give clear errors
+                            await context.Response.WriteAsync(err.Error.Message); // write the error into our HTTP Response as well
+                        }
+                    });
+                });
             }
 
             // app.UseHttpsRedirection(); // Configure later, for now let's just deal with 'http'
