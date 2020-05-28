@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Memeio.API.Data;
@@ -64,7 +65,7 @@ namespace Memeio.API.Controllers
 
         // TODO : Fix null ref exception when mapping from commentForProfileDto to Comment
         [HttpPut("{userId}/comment")]
-        public async Task<IActionResult> AddCommentForUser(int userId, [FromForm] CommentForProfileDto commentForProfileDto) // TODO: Add form/CommentForProfileDto // for now lets just add a simple
+        public async Task<IActionResult> AddCommentForUser(int userId, CommentForProfileDto commentForProfileDto) // TODO: Add form/CommentForProfileDto // for now lets just add a simple
         {
             //Determine if user exists:
             var userFromRepo = await _repo.GetUser(userId);
@@ -72,7 +73,10 @@ namespace Memeio.API.Controllers
             if(userFromRepo == null)
                 return BadRequest("User doesn't exist");
             
-            commentForProfileDto.UserId = userId;
+            // Since our form only takes in a content field, fill in the gaps with the posting user's token:
+            commentForProfileDto.Author = User.FindFirst(ClaimTypes.Name).Value;
+            commentForProfileDto.AuthorId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            commentForProfileDto.UserId = userId; // Original Poster's Id
 
             var comment = _mapper.Map<CommentForProfile>(commentForProfileDto);
 

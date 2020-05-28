@@ -90,7 +90,7 @@
           >
             <div class="nav-link">
               <a class="dropdown-item" [routerLink]="['profiles/' + authService.decodedToken?.nameid]">Profile</a>
-              <a class="dropdown-item" (click)="logout()">Logout</a>
+              <a class="dropdown-item" [routerLink]="['/home']" (click)="logout()">Logout</a>
             </div>
           </div>
         </li>

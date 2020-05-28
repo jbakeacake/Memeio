@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { User } from '../_models/user';
+import { Comments } from '../_models/comments';
 
 @Injectable({
   providedIn: 'root',
@@ -23,5 +24,10 @@ export class UserService {
 
   getUser(id: number): Observable<User> {
     return this.http.get<User>(this.baseUrl + 'user/' + id);
+  }
+
+  // acutually ADDS a comment to user profile -- updates the receiving user's comment collection
+  updateCommentForUser(userId: number, comment: Comments) {
+    return this.http.put(this.baseUrl + 'user/' + userId + '/comment', comment);
   }
 }

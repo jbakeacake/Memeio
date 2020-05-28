@@ -10,26 +10,36 @@ import { AlertifyService } from '../_services/alertify.service';
 export class RegisterComponent implements OnInit {
   model: any = {};
   @ViewChild('registerForm') registerForm: ElementRef;
-  constructor(private authService: AuthService, private alertify: AlertifyService) {}
+  constructor(
+    private authService: AuthService,
+    private alertify: AlertifyService
+  ) {}
 
   ngOnInit() {}
 
   register() {
-    this.authService.register(this.model).subscribe(() => { // Register AND Login in our user once they register
-      this.alertify.success('Successfully Registered!');
-      this.login();
-      this.registerForm.nativeElement.reset();
-    }, err => {
-      this.alertify.error(err);
-    });
+    this.authService.register(this.model).subscribe(
+      () => {
+        // Register AND Login in our user once they register
+        this.alertify.success('Successfully Registered!');
+        this.login();
+        this.registerForm.nativeElement.reset();
+      },
+      (err) => {
+        this.alertify.error(err);
+      }
+    );
   }
 
   login() {
-    this.authService.login(this.model).subscribe(next => {
-      this.alertify.success('Login Successful!');
-    }, err => {
-      this.alertify.error(err);
-    });
+    this.authService.login(this.model).subscribe(
+      (next) => {
+        this.alertify.success('Login Successful!');
+      },
+      (err) => {
+        this.alertify.error(err);
+      }
+    );
   }
 
   loggedIn() {

@@ -4,6 +4,7 @@
 @import "../node_modules/font-awesome/css/font-awesome.min.css";
 @import "../node_modules/alertifyjs/build/css/alertify.css";
 @import "../node_modules/alertifyjs/build/css/themes/bootstrap.min.css";
+@import "~ngx-tabset/ngx-tabset";
 
 .tab-panel {
   border: 1px solid #ddd;
