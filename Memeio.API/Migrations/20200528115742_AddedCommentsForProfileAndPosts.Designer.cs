@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Memeio.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200526181542_AddedCommentsTbl")]
-    partial class AddedCommentsTbl
+    [Migration("20200528115742_AddedCommentsForProfileAndPosts")]
+    partial class AddedCommentsForProfileAndPosts
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -18,7 +18,7 @@ namespace Memeio.API.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.0");
 
-            modelBuilder.Entity("Memeio.API.Models.Comment", b =>
+            modelBuilder.Entity("Memeio.API.Models.CommentForPost", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -33,16 +33,33 @@ namespace Memeio.API.Migrations
                     b.Property<int>("PostId")
                         .HasColumnType("INTEGER");
 
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("Post_Comments_Tbl");
+                });
+
+            modelBuilder.Entity("Memeio.API.Models.CommentForProfile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Author")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PostId");
-
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comments_Tbl");
+                    b.ToTable("Profile_Comments_Tbl");
                 });
 
             modelBuilder.Entity("Memeio.API.Models.Photo", b =>
@@ -50,6 +67,9 @@ namespace Memeio.API.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Author")
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("DatePosted")
                         .HasColumnType("TEXT");
@@ -62,6 +82,9 @@ namespace Memeio.API.Migrations
 
                     b.Property<int>("Likes")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("PublicId")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Url")
                         .HasColumnType("TEXT");
@@ -114,14 +137,17 @@ namespace Memeio.API.Migrations
                     b.ToTable("Users_Tbl");
                 });
 
-            modelBuilder.Entity("Memeio.API.Models.Comment", b =>
+            modelBuilder.Entity("Memeio.API.Models.CommentForPost", b =>
                 {
                     b.HasOne("Memeio.API.Models.Photo", "Post")
                         .WithMany("Comments")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
 
+            modelBuilder.Entity("Memeio.API.Models.CommentForProfile", b =>
+                {
                     b.HasOne("Memeio.API.Models.User", "User")
                         .WithMany("Comments")
                         .HasForeignKey("UserId")

@@ -24,21 +24,43 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-lg pl-0 ml-0 mr-1">
+    <div class="col-lg">
       <div class="card">
         <div class="card-body" style="min-height: 400px;">
-          <h5 class="card-title text-primary">About</h5>
+          <h5 class="card-title text-active">About</h5>
+          <hr>
           <p class="card-text text-muted"> {{user.introduction}}</p>
         </div>
       </div>
     </div>
-    <div class="col-lg pr-0 mr-0">
+    <div class="col-lg">
       <div class="card">
         <div class="card-body" style="min-height: 400px;">
-          <h5 class="card-title text-primary">Comments</h5>
-          <p class="card-text text-muted" *ngFor="let comment of user.comments">
-            {{comment}}
-          </p>
+          <h5 class="card-title text-active">Comments</h5>
+          <hr>
+          <div class="card-text font-weight-light text-muted" *ngFor="let comment of user.comments">
+            <h5 class="btn text-primary" [routerLink]="['/profiles/2']"> {{comment.author | titlecase}} </h5>
+            <div class="ml-4 mb-2">
+              {{comment.content}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg">
+      <!-- Empty Column -->
+    </div>
+    <div class="col-lg">
+      <div class="card" style="height: 70px;">
+        <form class="pl-4 my-auto">
+          <textarea name="" id="" cols="50" rows="1" placeholder="Add a Profile Comment..."></textarea>
+        </form>
+        <div class="bottom-right" style="top: 25%; left: 80%;">
+          <button class="btn btn-primary" style="min-width: 100px;">
+            Post
+          </button>
         </div>
       </div>
     </div>

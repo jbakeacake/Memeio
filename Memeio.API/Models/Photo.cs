@@ -11,7 +11,7 @@ namespace Memeio.API.Models
         public User User { get; set; } //This will act as the author
         public int UserId { get; set; }
         public DateTime DatePosted { get; set; }
-        public ICollection<Comment> Comments { get; set; }
+        public ICollection<CommentForPost> Comments { get; set; }
         public string PublicId { get; set; }
         public int Likes { get; set; }
         public int Dislikes { get; set; }

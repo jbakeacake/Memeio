@@ -18,8 +18,9 @@ namespace Memeio.API.Helpers
             CreateMap<Photo, PhotoForReturnDto>();
             CreateMap<User, UserForSearchDto>();
             CreateMap<User, UserForProfileDto>();
-            CreateMap<Comment, CommentForProfileDto>();
-            CreateMap<CommentForProfileDto, Comment>();
+            CreateMap<CommentForProfile, CommentForProfileToReturnDto>();
+            CreateMap<CommentForProfile, CommentForProfileDto>();
+            CreateMap<CommentForProfileDto, CommentForProfile>();
         }
     }
 }

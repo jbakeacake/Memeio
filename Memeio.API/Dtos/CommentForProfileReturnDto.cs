@@ -1,6 +1,6 @@
 namespace Memeio.API.Dtos
 {
-    public class CommentToReturnDto
+    public class CommentForProfileToReturnDto
     {
         public int Id { get; set; }
         public string Author { get; set; }

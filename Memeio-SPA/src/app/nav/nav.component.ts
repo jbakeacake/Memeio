@@ -11,10 +11,6 @@ import { User } from '../_models/user';
 })
 export class NavComponent implements OnInit {
   users: User[];
-  @ViewChild('HomeBtn') homeBtn: ElementRef;
-  @ViewChild('ArchiveBtn') archiveBtn: ElementRef;
-  @ViewChild('NotificationsBtn') notificationsBtn: ElementRef;
-  @ViewChild('GalleryBtn') galleryBtn: ElementRef;
 
   currentActive: ElementRef;
 

@@ -14,7 +14,7 @@ namespace Memeio.API.Data
         Task<Photo> GetPhoto(int id);
         Task<IEnumerable<Photo>> GetPhotoSet();
         Task<IEnumerable<Photo>> GetUserPhotos(int id);
-        Task<Comment> GetUserComment(int id);
-        Task<IEnumerable<Comment>> GetUserComments(int id);
+        Task<CommentForProfile> GetUserComment(int id);
+        Task<IEnumerable<CommentForProfile>> GetUserComments(int id);
     }
 }

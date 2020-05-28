@@ -54,7 +54,7 @@ namespace Memeio.API.Controllers
             return Ok(userToReturn);
         }
 
-        [HttpGet("{id}", Name="GetComment")]
+        [HttpGet("{userId}/comment/{id}", Name="GetComment")]
         public async Task<IActionResult> GetComment(int id)
         {
             var commentFromRepo = await _repo.GetUserComment(id);
@@ -74,13 +74,13 @@ namespace Memeio.API.Controllers
             
             commentForProfileDto.UserId = userId;
 
-            var comment = _mapper.Map<Comment>(commentForProfileDto);
+            var comment = _mapper.Map<CommentForProfile>(commentForProfileDto);
 
             userFromRepo.Comments.Add(comment);
 
             if(await _repo.SaveAll())
             {
-                var commentToReturn = _mapper.Map<CommentToReturnDto>(comment);
+                var commentToReturn = _mapper.Map<CommentForProfileToReturnDto>(comment);
                 return CreatedAtRoute("GetComment", new { userId = userId, id = comment.Id }, commentToReturn);
             }
 

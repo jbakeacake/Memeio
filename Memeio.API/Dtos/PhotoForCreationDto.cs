@@ -12,7 +12,7 @@ namespace Memeio.API.Dtos
         public string Url { get; set; }
         public string Author { get; set; }
         public DateTime DatePosted { get; set; }
-        public ICollection<Comment> Comments { get; set; }
+        public ICollection<CommentForPost> Comments { get; set; }
         public int Likes { get; set; }
         public int Dislikes { get; set; }
         public int Favorites { get; set; }

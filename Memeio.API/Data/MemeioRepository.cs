@@ -12,7 +12,7 @@ namespace Memeio.API.Data
 
         public MemeioRepository(DataContext context)
         {
-            _context = context;   
+            _context = context;
         }
 
         public void Add<T>(T entity) where T : class
@@ -85,7 +85,7 @@ namespace Memeio.API.Data
         */
         public async Task<User> GetUser(int id)
         {
-            var user = await _context.Users_Tbl.Include(p => p.Posts).FirstOrDefaultAsync(u => u.Id == id);
+            var user = await _context.Users_Tbl.Include(u => u.Posts).Include(u => u.Comments).FirstOrDefaultAsync(u => u.Id == id);
             return user;
         }
 
@@ -98,7 +98,7 @@ namespace Memeio.API.Data
         */
         public async Task<IEnumerable<User>> GetUsers()
         {
-            var users = await _context.Users_Tbl.Include(p => p.Posts).ToListAsync();
+            var users = await _context.Users_Tbl.Include(u => u.Posts).Include(u => u.Comments).ToListAsync();
             return users;
         }
 
@@ -114,15 +114,28 @@ namespace Memeio.API.Data
             return await _context.SaveChangesAsync() > 0; // If positive, changes were saved successfully
         }
 
-        public async Task<Comment> GetUserComment(int id)
+        public async Task<CommentForProfile> GetUserComment(int id)
         {
-            return await _context.Comments_Tbl
+            return await _context.Profile_Comments_Tbl
                 .Where(c => c.Id == id)
                 .FirstOrDefaultAsync();
         }
-        public async Task<IEnumerable<Comment>> GetUserComments(int id)
+        public async Task<IEnumerable<CommentForProfile>> GetUserComments(int id)
         {
-            return await _context.Comments_Tbl
+            return await _context.Profile_Comments_Tbl
+                .Where(c => c.UserId == id)
+                .ToListAsync();
+        }
+
+        public async Task<CommentForProfile> GetPostComment(int id)
+        {
+            return await _context.Profile_Comments_Tbl
+                .Where(c => c.Id == id)
+                .FirstOrDefaultAsync();
+        }
+        public async Task<IEnumerable<CommentForProfile>> GetPostComments(int id)
+        {
+            return await _context.Profile_Comments_Tbl
                 .Where(c => c.UserId == id)
                 .ToListAsync();
         }
