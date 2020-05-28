@@ -13,7 +13,7 @@
       </a>
     </button>
 
-    <div class="mb-4 pb-2">
+    <div *ngIf="loggedIn()" class="mb-4 pb-2">
       <form class="form abs-center-x">
         <input
           class="form-control"
@@ -51,21 +51,21 @@
 
       <!-- Show Logged In Nav Elements -->
       <ul *ngIf="loggedIn()" class="navbar-nav text-center">
-        <li class="nav-item btn" [routerLink]="['/gallery']">
+        <li #GalleryBtn id="GalleryBtn" class="nav-item btn" [routerLink]="['/gallery']">
           <i class="fa fa-map fa-2x"></i>
           <a class="nav-link">Meme Gallery</a>
         </li>
       </ul>
       <ul *ngIf="loggedIn()" class="navbar-nav ml-auto text-center">
-        <li class="nav-item btn" [routerLink]="['/home']">
+        <li #HomeBtn id="HomeBtn" class="nav-item btn" [routerLink]="['/home']">
           <i class="fa fa-home fa-2x"></i>
           <a class="nav-link">Home</a>
         </li>
-        <li class="nav-item btn">
+        <li #ArchiveBtn id="ArchiveBtn" class="nav-item btn">
           <i class="fa fa-archive fa-2x"></i>
           <a class="nav-link">Archive</a>
         </li>
-        <li class="nav-item btn">
+        <li #NotificationsBtn id="NotificationsBtn" class="nav-item btn">
           <i class="fa fa-bell fa-2x"></i>
           <a class="nav-link">Notifications</a>
         </li>
@@ -87,11 +87,9 @@
           <div
             class="dropdown-menu"
             *dropdownMenu
-            aria-labelledby="Profile_Dropdown"
           >
             <div class="nav-link">
-              <a class="dropdown-item">Profile</a>
-              <a class="dropdown-item">My Content</a>
+              <a class="dropdown-item" [routerLink]="['profiles/' + authService.decodedToken?.nameid]">Profile</a>
               <a class="dropdown-item" (click)="logout()">Logout</a>
             </div>
           </div>

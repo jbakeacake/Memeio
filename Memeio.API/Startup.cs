@@ -35,11 +35,13 @@ namespace Memeio.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(option => {
+                option.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection"))); // Integrate the connection/schema to our database
-            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings")); //Incorporate our connection to our Cloudinary database
             services.AddCors(); // Integrate Cors so we can communicate our API with our SPA
-            services.AddAutoMapper(typeof(MemeioRepository).Assembly);
+            services.AddAutoMapper(typeof(MemeioRepository).Assembly); //Add AutoMapper to our main repository
 
             //Add our repos to our services
             services.AddScoped<IMemeioRepository, MemeioRepository>();
@@ -86,6 +88,8 @@ namespace Memeio.API
             app.UseRouting();
 
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()); // Allow any connections for our current development
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

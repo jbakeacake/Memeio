@@ -1,0 +1,40 @@
+.right {
+    width: 5%;
+}
+
+.bottom-right {
+    position: absolute;
+    top: 70%;
+    left: 90%;
+    float: right;
+}
+
+.border-right {
+    border-right: 1px solid grey;
+}
+
+.fa-gear {
+    color: rgb(104, 103, 124);
+}
+
+.fa-gear:hover {
+    color: #D9230F;
+}
+
+.btn:hover {
+    color: #D9230F;
+}
+
+#block_container_left {
+    display: flex;
+    justify-content: left;
+}
+
+#block_container_right {
+    display: flex;
+    justify-content: right;
+}
+
+.dropdown-item:hover {
+    color: white;
+}

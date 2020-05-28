@@ -43,14 +43,15 @@ namespace Memeio.API.Data
         /*
         GetPhotos() : Task<IEnumerable<Photo>>
 
-        Returns the entire collection of photos.
+        Returns the 500 of the latest photos added to the database. // TODO: Maybe incorporate a method which selects memes from the users with top followers?
 
         Return : Task<IEnumerable<Photo>> >> List of ALL photos from the database
 
         */
-        public async Task<IEnumerable<Photo>> GetPhotos()
+        public async Task<IEnumerable<Photo>> GetPhotoSet()
         {
-            var photos = await _context.Photos_Tbl.ToListAsync();
+            int numRecords = 500;
+            var photos = await _context.Photos_Tbl.OrderByDescending(p => p.DatePosted).Take(numRecords).ToListAsync();
             return photos;
         }
 
@@ -111,6 +112,19 @@ namespace Memeio.API.Data
         public async Task<bool> SaveAll()
         {
             return await _context.SaveChangesAsync() > 0; // If positive, changes were saved successfully
+        }
+
+        public async Task<Comment> GetUserComment(int id)
+        {
+            return await _context.Comments_Tbl
+                .Where(c => c.Id == id)
+                .FirstOrDefaultAsync();
+        }
+        public async Task<IEnumerable<Comment>> GetUserComments(int id)
+        {
+            return await _context.Comments_Tbl
+                .Where(c => c.UserId == id)
+                .ToListAsync();
         }
     }
 }

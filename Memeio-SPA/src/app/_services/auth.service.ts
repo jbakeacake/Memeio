@@ -8,6 +8,12 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
+/*
+  AuthService: Class
+
+  Our AuthService will communicate with our 'AuthController' in our API. Every HTTP request will be sent the to the url
+  'localhost:5000/auth/', and will be appended with any additional locations depending on the method to call.
+*/
 export class AuthService {
 
   baseUrl = environment.apiUrl + 'auth/';
@@ -26,7 +32,6 @@ constructor(private http: HttpClient) { }
             localStorage.setItem('user', JSON.stringify(user.user));
             this.decodedToken = this.jwtHelper.decodeToken(user.token);
             this.currentUser = user.user;
-            console.log('Login successful');
           }
         })
       );
