@@ -8,10 +8,12 @@
   </div>
   <div class="jumbotron row">
     <div class="col-lg">
-        <img src="{{ user.photoUrl }}" style="max-height: 100px;" />
-        <h1 class="font-weight-bold text-muted mt-2"> {{ user.username | titlecase }}</h1>
+      <img src="{{ user.photoUrl }}" style="max-height: 100px;" />
+      <h1 class="font-weight-bold text-muted mt-2">
+        {{ user.username | titlecase }}
+      </h1>
     </div>
-    <div class="col-lg" dropdown>
+    <div *ngIf="isTokenEqual()" class="col-lg" dropdown>
       <div class="bottom-right">
         <h1><i class="btn fa fa-gear mb-0 pb-0" dropdownToggle></i></h1>
         <div class="dropdown-menu mt-0 pt-0" *dropdownMenu>
@@ -26,10 +28,10 @@
   <div class="row">
     <div class="col-lg">
       <div class="card">
-        <div class="card-body" style="min-height: 400px;">
-          <h5 class="card-title text-active">About</h5>
-          <hr>
-          <p class="card-text text-muted"> {{user.introduction}}</p>
+        <div class="card-body stats-scroll" style="min-height: 400px;">
+          <h5 class="card-title text-active">Stats</h5>
+          <hr/>
+          <app-profile-stats style="max-width: 400px !important;"></app-profile-stats>
         </div>
       </div>
     </div>
@@ -37,11 +39,16 @@
       <div class="card">
         <div class="card-body comment-scroll" style="min-height: 400px;">
           <h5 class="card-title text-active">Comments</h5>
-          <hr>
-          <div class="card-text font-weight-light text-muted" *ngFor="let comment of user.comments">
-            <h5 class="btn text-primary p-0" [routerLink]="['/profiles/2']"> {{comment.author | titlecase}} </h5>
+          <hr />
+          <div
+            class="card-text font-weight-light text-muted"
+            *ngFor="let comment of user.comments"
+          >
+            <h5 class="btn text-primary p-0" [routerLink]="['/profiles/2']">
+              {{ comment.author | titlecase }}
+            </h5>
             <div class="ml-4 mb-2">
-              {{comment.content}}
+              {{ comment.content }}
             </div>
           </div>
         </div>
@@ -54,11 +61,28 @@
     </div>
     <div class="col-lg">
       <div class="card" style="height: 70px;">
-        <form id="commentForm" #CommentForm="ngForm" #CommentForm class="pl-4 my-auto" (ngSubmit)="addComment()">
-          <textarea cols="50" rows="1" placeholder="Add a Profile Comment..." name="content" [(ngModel)]="model.content"></textarea>
+        <form
+          id="commentForm"
+          #CommentForm="ngForm"
+          #CommentForm
+          class="pl-4 my-auto"
+          (ngSubmit)="addComment()"
+        >
+          <textarea
+            cols="50"
+            rows="1"
+            placeholder="Add a Profile Comment..."
+            name="content"
+            [(ngModel)]="model.content"
+          ></textarea>
         </form>
         <div class="bottom-right" style="top: 25%; left: 80%;">
-          <button type="submit" form="commentForm" class="btn btn-primary" style="min-width: 100px;">
+          <button
+            type="submit"
+            form="commentForm"
+            class="btn btn-primary"
+            style="min-width: 100px;"
+          >
             Post
           </button>
         </div>
@@ -68,19 +92,25 @@
   <div class="row mt-5">
     <div class="col-lg">
       <div class="card text-center posts_scroll" style="height: 940px;">
-        <div class="container" style="font-size: larger">
-          <ngx-tabset customNavClass="nav-test-class" customTabsClass="container pl-0 ml-0">
+        <div class="container" style="font-size: larger;">
+          <ngx-tabset
+            customNavClass="nav-test-class"
+            customTabsClass="container pl-0 ml-0"
+          >
             <ngx-tab tabTitle="Posts">
               <div class="row no-gutters">
-                <div *ngFor="let post of user?.posts" class="col-md-3 no-gutters px-0 mx-0">
-                  <img class="resize mb-2 img-thumbnail" src="{{post.url}}">
+                <div
+                  *ngFor="let post of user?.posts"
+                  class="col-md-3 no-gutters px-0 mx-0"
+                >
+                  <img class="resize mb-2 img-thumbnail" src="{{ post.url }}" />
                 </div>
               </div>
             </ngx-tab>
-            <ngx-tab tabTitle="Archive">
+            <ngx-tab *ngIf="isTokenEqual()" tabTitle="Archive">
               Archive Collection goes here
             </ngx-tab>
-            <ngx-tab tabTitle="Upload">
+            <ngx-tab *ngIf="isTokenEqual()" tabTitle="Upload">
               Uploader module goes here
             </ngx-tab>
           </ngx-tabset>

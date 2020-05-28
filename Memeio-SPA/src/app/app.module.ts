@@ -8,6 +8,8 @@ import { TabsModule } from 'ngx-tabset';
 import { JwtModule } from '@auth0/angular-jwt';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { PortalModule } from '@angular/cdk/portal';
 
 
 // Component/Services Imports:
@@ -25,6 +27,7 @@ import { UserService } from './_services/user.service';
 import { SearchResolver } from './_resolvers/search.resolver';
 import { ProfileDetailResolver } from './_resolvers/profile-detail.resolver';
 import { ProfileDetailComponent } from './profile/profile-detail/profile-detail.component';
+import { ProfileStatsComponent } from './profile/profile-stats/profile-stats.component';
 
 // This function gets our token from the user's local storage and returns it for usage in our JwtModule
 export function tokenGetter() {
@@ -39,12 +42,15 @@ export function tokenGetter() {
       GalleryCommentsComponent,
       GalleryMainComponent,
       RegisterComponent,
-      ProfileDetailComponent
+      ProfileDetailComponent,
+      ProfileStatsComponent
    ],
    imports: [
       BrowserModule,
       HttpClientModule,
       FormsModule,
+      NgxChartsModule,
+      PortalModule,
       BrowserAnimationsModule,
       BsDropdownModule.forRoot(),
       TabsModule.forRoot(),

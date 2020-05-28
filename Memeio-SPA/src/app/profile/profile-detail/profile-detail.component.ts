@@ -28,6 +28,7 @@ export class ProfileDetailComponent implements OnInit {
       this.user = data['user'];
     });
     console.log('This pages user:' + this.user.username);
+    console.log(this.isTokenEqual());
   }
 
   addComment() {
@@ -37,6 +38,10 @@ export class ProfileDetailComponent implements OnInit {
       this.user.comments.push(this.model);
     }, err => {
       this.alertify.error(err);
-    })
+    });
+  }
+
+  isTokenEqual() {
+    return this.user.id === parseInt(this.authService.decodedToken.nameid, 10);
   }
 }
