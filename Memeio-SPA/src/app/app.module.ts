@@ -10,7 +10,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { PortalModule } from '@angular/cdk/portal';
-import { Ng2UploaderModule } from 'ng2-uploader';
 
 
 // Component/Services Imports:
@@ -52,7 +51,6 @@ export function tokenGetter() {
       FormsModule,
       NgxChartsModule,
       PortalModule,
-      Ng2UploaderModule,
       BrowserAnimationsModule,
       BsDropdownModule.forRoot(),
       TabsModule.forRoot(),
