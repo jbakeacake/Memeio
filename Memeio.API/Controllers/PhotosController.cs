@@ -70,7 +70,7 @@ namespace Memeio.API.Controllers
                     var uploadParams = new ImageUploadParams()
                     {
                         File = new FileDescription(file.Name, stream),
-                        Transformation = new Transformation().Width(500).Height(500).Crop("fill").Gravity("face")
+                        Transformation = new Transformation().Width(200).Height(250).Crop("scale")
                     };
                     uploadResult = _cloudinary.Upload(uploadParams); // upload our file and get the link associated with that file
                 }; // dispose of photo data in memory / close stream when done

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Resolve, Router, ActivatedRouteSnapshot } from '@angular/router';
-import { AlertifyService } from '../_services/alertify.service';
+import { ToasterService } from '../_services/toaster.service';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Photo } from '../_models/photo';
-import { PhotosService } from '../_services/photos.service';
+import { GalleryService } from '../_services/gallery.service';
 
 @Injectable()
 /**
@@ -15,15 +15,15 @@ import { PhotosService } from '../_services/photos.service';
  */
 export class HomeResolver implements Resolve<Photo[]> {
   constructor(
-    private photosService: PhotosService,
+    private galleryService: GalleryService,
     private router: Router,
-    private alertify: AlertifyService
+    private toaster: ToasterService
   ) {}
 
   resolve(route: ActivatedRouteSnapshot): Observable<Photo[]> {
-      return this.photosService.getPhotoSet().pipe(
+      return this.galleryService.getPhotoSet().pipe(
           catchError(err => {
-              this.alertify.error('Problem retrieving photo set data');
+              this.toaster.error('Problem retrieving photo set data');
               this.router.navigate(['/home']);
               return of(null);
           })

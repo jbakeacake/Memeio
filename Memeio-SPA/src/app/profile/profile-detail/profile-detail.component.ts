@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/_services/user.service';
 import { User } from 'src/app/_models/user';
 import { Comments } from 'src/app/_models/comments';
-import { AlertifyService } from 'src/app/_services/alertify.service';
+import { ToasterService } from 'src/app/_services/toaster.service';
 import { AuthService } from 'src/app/_services/auth.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class ProfileDetailComponent implements OnInit {
     private userService: UserService,
     private authService: AuthService,
     private route: ActivatedRoute,
-    private alertify: AlertifyService
+    private toaster: ToasterService
   ) {}
 
   ngOnInit() {
@@ -32,11 +32,11 @@ export class ProfileDetailComponent implements OnInit {
 
   addComment() {
     this.userService.updateCommentForUser(this.user.id, this.model).subscribe(() => {
-      this.alertify.success('Comment Added!');
+      this.toaster.commentAdded('Comment Added!');
       this.model.author = this.authService.decodedToken.unique_name;
       this.user.comments.push(this.model);
     }, err => {
-      this.alertify.error(err);
+      this.toaster.error(err);
     })
   }
 }

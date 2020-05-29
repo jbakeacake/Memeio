@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
-import { AlertifyService } from '../_services/alertify.service';
+import { ToasterService } from '../_services/toaster.service';
 
 @Component({
   selector: 'app-register',
@@ -12,7 +12,7 @@ export class RegisterComponent implements OnInit {
   @ViewChild('registerForm') registerForm: ElementRef;
   constructor(
     private authService: AuthService,
-    private alertify: AlertifyService
+    private toaster: ToasterService
   ) {}
 
   ngOnInit() {}
@@ -21,12 +21,12 @@ export class RegisterComponent implements OnInit {
     this.authService.register(this.model).subscribe(
       () => {
         // Register AND Login in our user once they register
-        this.alertify.success('Successfully Registered!');
+        this.toaster.success('Successfully Registered!');
         this.login();
         this.registerForm.nativeElement.reset();
       },
       (err) => {
-        this.alertify.error(err);
+        this.toaster.error(err);
       }
     );
   }
@@ -34,10 +34,10 @@ export class RegisterComponent implements OnInit {
   login() {
     this.authService.login(this.model).subscribe(
       (next) => {
-        this.alertify.success('Login Successful!');
+        this.toaster.success('Login Successful!');
       },
       (err) => {
-        this.alertify.error(err);
+        this.toaster.error(err);
       }
     );
   }

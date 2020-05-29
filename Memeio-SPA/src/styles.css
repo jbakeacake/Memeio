@@ -1,10 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 @import "../node_modules/bootswatch/dist/simplex/bootstrap.min.css";
-@import "../node_modules/font-awesome/css/font-awesome.min.css";
+@import "../node_modules/@fortawesome/fontawesome-free/css/all.min.css";
 @import "../node_modules/alertifyjs/build/css/alertify.css";
 @import "../node_modules/alertifyjs/build/css/themes/bootstrap.min.css";
 @import "~ngx-tabset/ngx-tabset";
+
+
+.iziToast.iziToast-theme-primary {
+  background: #CED3DC;
+}
+
+
+.iziToast.iziToast-theme-secondary {
+  background: #FCF7F8;
+}
+
+
+
 
 .tab-panel {
   border: 1px solid #ddd;

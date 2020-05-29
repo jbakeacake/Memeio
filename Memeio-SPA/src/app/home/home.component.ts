@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
-import { AlertifyService } from '../_services/alertify.service';
+import { ToasterService } from '../_services/toaster.service';
 import { User } from '../_models/user';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
   users: User[];
   constructor(
     private authService: AuthService,
-    private alertify: AlertifyService,
+    private toaster: ToasterService,
     private route: ActivatedRoute
   ) {}
 
@@ -24,10 +24,10 @@ export class HomeComponent implements OnInit {
   login() {
     this.authService.login(this.model).subscribe(
       (next) => {
-        this.alertify.success('Login Successful!');
+        this.toaster.success('Login Successful!');
       },
       (err) => {
-        this.alertify.error(err);
+        this.toaster.error(err);
       }
     );
   }

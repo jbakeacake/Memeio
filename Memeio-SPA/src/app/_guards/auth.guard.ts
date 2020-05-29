@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { AuthService } from '../_services/auth.service';
-import { AlertifyService } from '../_services/alertify.service';
+import { ToasterService } from '../_services/toaster.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +10,7 @@ export class AuthGuard implements CanActivate {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private alertify: AlertifyService
+    private toaster: ToasterService
   ) {}
 
   canActivate(): boolean {
@@ -19,7 +19,7 @@ export class AuthGuard implements CanActivate {
       return true;
     }
 
-    this.alertify.error('Please login to view this page'); // otherwise send them back to the home page
+    this.toaster.error('Please login to view this page'); // otherwise send them back to the home page
     this.router.navigate(['/home']);
     return false;
   }

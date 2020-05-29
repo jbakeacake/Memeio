@@ -32,10 +32,10 @@
       name="Password"
       [(ngModel)]="model.Password"
     />
-    <button class="btn btn-lg btn-primary btn-block" type="submit">
+    <button class="btn btn-lg btn-block btn-primary rounded-0" type="submit">
       Sign in
     </button>
-    <p class="mt-4 text-muted"> Need an account? <span><a href="register" class="link">Register</a></span></p>
-    <p class="mt-5 mb-3 text-muted">〠 Jbakeacake 2020</p>
+    <p class="mt-4 text-muted"> Need an account? <span><a class="link" [routerLink]="['/register']">Register</a></span></p>
+    <p class="mt-5 mb-3 text-muted"><i class="fab fa-jedi-order"></i> Jbakeacake 2020</p>
   </form>
 </body>

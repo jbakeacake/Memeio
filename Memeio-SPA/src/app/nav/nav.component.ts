@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
-import { AlertifyService } from '../_services/alertify.service';
+import { ToasterService } from '../_services/toaster.service';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '../_models/user';
 
@@ -16,7 +16,7 @@ export class NavComponent implements OnInit {
 
   constructor(
     public authService: AuthService,
-    private alertify: AlertifyService,
+    private toaster: ToasterService,
     private route: ActivatedRoute
   ) {}
 
@@ -28,7 +28,7 @@ export class NavComponent implements OnInit {
     localStorage.removeItem('user');
     this.authService.decodedToken = null;
     this.authService.currentUser = null;
-    this.alertify.message('Logged out');
+    this.toaster.logoutMsg('Logged out: See you later!');
   }
 
   loggedIn() {

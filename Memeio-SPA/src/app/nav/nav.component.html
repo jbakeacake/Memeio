@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-xl">
-    <button class="btn border-right" [routerLink]="['/home']">
+    <button class="btn border-right rounded-0" [routerLink]="['/home']">
       <img
         src="https://cdn.dribbble.com/users/1303003/screenshots/3988327/cat-logo.png"
         class="mr-2"
@@ -37,18 +37,6 @@
     </button>
     <!-- Collapsable Elements -->
     <div class="collapse navbar-collapse" id="Nav_Elements">
-      <!-- Register Element if not logged in -->
-      <ul *ngIf="!loggedIn()" class="navbar-nav ml-auto text-center">
-        <li class="nav-item">
-          <button
-            class="btn btn-primary btn-block btn-lg"
-            [routerLink]="['/register']"
-          >
-            Register
-          </button>
-        </li>
-      </ul>
-
       <!-- Show Logged In Nav Elements -->
       <ul *ngIf="loggedIn()" class="navbar-nav text-center">
         <li #GalleryBtn id="GalleryBtn" class="nav-item btn" [routerLink]="['/gallery']">
