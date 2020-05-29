@@ -1,0 +1,13 @@
+<div class="card rounded-0 m-1">
+  <div class="card-text">
+    <h5
+      class="btn text-primary p-1"
+      [routerLink]="['/profiles/' + comment.authorId]"
+    >
+      {{ comment.author | titlecase }}
+    </h5>
+    <div class="mx-4 mb-2">
+      {{ comment.content }}
+    </div>
+  </div>
+</div>

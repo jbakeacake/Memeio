@@ -36,11 +36,9 @@
         <div class="card-body comment-scroll" style="min-height: 400px;">
           <h5 class="card-title text-active">Comments</h5>
           <hr>
-          <div class="card-text font-weight-light text-muted" *ngFor="let comment of user.comments">
-            <h5 class="btn text-primary p-0" [routerLink]="['/profiles/2']"> {{comment.author | titlecase}} </h5>
-            <div class="ml-4 mb-2">
-              {{comment.content}}
-            </div>
+          <div *ngFor="let comment of user.comments.reverse()">
+            <app-profile-comments [comment]="comment">
+            </app-profile-comments>
           </div>
         </div>
       </div>
@@ -71,7 +69,7 @@
             <ngx-tab tabTitle="Posts">
               <div class="row no-gutters">
                 <div *ngFor="let post of user?.posts" class="col-md-3">
-                  <img class="fill" src="{{post.url}}">
+                  <app-post-card [photo]=post></app-post-card>
                 </div>
               </div>
             </ngx-tab>
@@ -79,7 +77,16 @@
               Archive Collection goes here
             </ngx-tab>
             <ngx-tab tabTitle="Upload">
-              Uploader module goes here
+              <div class="row">
+                <div class="col-lg-6">
+                  <app-photo-upload 
+                  [user]="user">
+                  </app-photo-upload>
+                </div>
+                <div class="col-lg-6">
+                  hellow there
+                </div>
+              </div>
             </ngx-tab>
           </ngx-tabset>
         </div>

@@ -23,7 +23,7 @@ export class ToasterService {
       theme: 'secondary',
       title: msg,
       icon: 'fas fa-user-astronaut',
-      message: 'Welcome back, ' + this.authService.decodedToken.unique_name + '!',
+      message: 'Welcome, ' + this.authService.decodedToken.unique_name + '!',
       position: 'bottomCenter',
       progressBarColor: '#A31621',
       transitionIn: 'fadeInUp',

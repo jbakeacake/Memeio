@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
   model: any = {};
   users: User[];
   constructor(
-    private authService: AuthService,
+    public authService: AuthService,
     private toaster: ToasterService,
     private route: ActivatedRoute
   ) {}

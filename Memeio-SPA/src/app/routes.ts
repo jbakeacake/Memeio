@@ -10,7 +10,7 @@ import { NavComponent } from './nav/nav.component';
 
 
 export const appRoutes: Routes = [
-  { path: 'home', component: HomeComponent},
+  { path: '', component: HomeComponent},
   { path: 'register', component: RegisterComponent },
   {
     path: '',
@@ -21,5 +21,5 @@ export const appRoutes: Routes = [
       { path: 'profiles/:id', component: ProfileDetailComponent, resolve: {user: ProfileDetailResolver}}
     ]
   },
-  { path: '**', redirectTo: 'home', pathMatch: 'full' },
+  { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
