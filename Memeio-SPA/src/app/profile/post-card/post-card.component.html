@@ -1,10 +1,10 @@
-<div class="post-card">
+<div class="post-card" (click)="enlargePhoto()">
   <div class="media m-1">
     <div class="card-img-wrapper m-auto">
       <img class="img-fluid rounded-0" src="{{photo.url}}" class="card-img-top">
     </div>
   </div>
-  <span class="inline">
+  <span *ngIf="!isEditing" class="inline">
     <ul class="list-inline text-center">
       <li class="list-inline-item">
         <button class="btn p-1 my-auto">
@@ -23,4 +23,5 @@
       </li>
     </ul>
   </span>
+  <i *ngIf="isEditing" class="far fa-check-circle fa-2x edit-btn"></i>
 </div>

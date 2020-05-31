@@ -14,6 +14,8 @@ import { CommentStmt } from '@angular/compiler';
 })
 export class ProfileDetailComponent implements OnInit {
   userInput: string;
+  editButtonValue: string;
+  editMode: boolean;
   user: User;
   model: any = {};
 
@@ -35,19 +37,33 @@ export class ProfileDetailComponent implements OnInit {
   }
 
   addComment() {
-    this.userService.updateCommentForUser(this.user.id, this.model).subscribe(() => {
-      this.toaster.commentAdded('Comment Added!');
-      this.model.author = this.authService.decodedToken.unique_name;
-    }, err => {
-      this.toaster.error(err);
-    }, () => {
-      // Create a local copy so we're not editing all comments that we're pushed in a single sitting:
-      const comment: any = {};
-      comment.author = this.model.author;
-      comment.authorId = this.model.authorId;
-      comment.content = this.model.content;
-      comment.userId = this.model.userId;
-      this.user.comments.push(comment);
-    });
+    this.userService.updateCommentForUser(this.user.id, this.model).subscribe(
+      () => {
+        this.toaster.commentAdded('Comment Added!');
+        this.model.author = this.authService.decodedToken.unique_name;
+      },
+      (err) => {
+        this.toaster.error(err);
+      },
+      () => {
+        // Create a local copy so we're not editing all comments that we're pushed in a single sitting:
+        const comment: any = {};
+        comment.author = this.model.author;
+        comment.authorId = this.model.authorId;
+        comment.content = this.model.content;
+        comment.userId = this.model.userId;
+        this.user.comments.push(comment);
+        this.model.content = '';
+      }
+    );
+  }
+
+  enableEditMode(button) {
+    this.editMode = !this.editMode;
+    if (!this.editMode) {
+      button.textContent = 'Edit Collections';
+    } else {
+      button.textContent = 'Stop Editing';
+    }
   }
 }

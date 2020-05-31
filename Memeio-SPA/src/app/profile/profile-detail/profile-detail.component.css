@@ -31,7 +31,7 @@ img.resize {
 
 .comment-scroll {
   min-height: 300px;
-  max-height: 400px;
+  max-height: 300px;
   overflow-y: auto;
 }
 
@@ -83,11 +83,9 @@ input:focus, input:active, input {
 
 .fa-cog:hover {
   color: #d9230f;
+  text-shadow: 0px 0px 10px gray;
 }
 
-.btn:hover {
-  color: #d9230f;
-}
 
 #block_container_left {
   display: flex;
@@ -109,4 +107,35 @@ input:focus, input:active, input {
 
 .mt-20pc {
   margin-top: 20%;
+}
+
+.fa-check-circle {
+  opacity: 0.2;
+}
+
+.fa-check-circle:hover {
+  opacity: 1;
+}
+
+.become-red:hover {
+  color: red;
+}
+
+.become-red:hover i {
+  opacity: 1;
+}
+
+.comment-section {
+  min-height: 400px;
+  max-height: 400px;
+  padding: 1;
+  margin: 0;
+}
+
+.card {
+  box-shadow: 0 0 20px lightgray;
+}
+
+button:hover {
+  box-shadow: 0px 3px 8px gray;
 }

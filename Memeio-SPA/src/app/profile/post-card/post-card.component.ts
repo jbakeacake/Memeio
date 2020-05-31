@@ -8,10 +8,16 @@ import { Photo } from 'src/app/_models/photo';
 })
 export class PostCardComponent implements OnInit {
   @Input() photo: Photo;
+  @Input() isEditing: boolean;
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  enlargePhoto()
+  {
+    
   }
 
 }

@@ -5,8 +5,12 @@
     background-color: rgb(66, 63, 63);
 }
 
+.post-card {
+    cursor: pointer;
+}
+
 .post-card:hover img {
-    transform: scale(1.2, 1.2);
+    transform: scale(1.05, 1.05);
     transition-duration: 500ms;
     transition-timing-function: ease-out;
     opacity: 0.3;
@@ -31,6 +35,17 @@ span {
     padding: 0;
 }
 
+.edit-btn {
+    position: absolute;
+    bottom: 80%;
+    left: 5%;
+    right: 0%;
+    margin: 0;
+    padding: 0;
+    min-width: 31px;
+    max-width: 31px;
+}
+
 i {
     color: white;
     text-shadow: 0 0 10px black;
@@ -50,4 +65,13 @@ i {
 
 .post-card:hover span {
     opacity: 0.9;
+}
+
+.fa-check-circle {
+    opacity: 0.9;
+}
+
+.fa-check-circle:hover{
+    opacity: 1;
+    color:red;
 }
