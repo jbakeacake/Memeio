@@ -5,6 +5,7 @@ import { User } from 'src/app/_models/user';
 import { Comments } from 'src/app/_models/comments';
 import { ToasterService } from 'src/app/_services/toaster.service';
 import { AuthService } from 'src/app/_services/auth.service';
+import { CommentStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-profile-detail',
@@ -12,8 +13,11 @@ import { AuthService } from 'src/app/_services/auth.service';
   styleUrls: ['./profile-detail.component.css'],
 })
 export class ProfileDetailComponent implements OnInit {
+  userInput: string;
   user: User;
   model: any = {};
+
+  commentSubscription: any;
 
   constructor(
     private userService: UserService,
@@ -34,9 +38,16 @@ export class ProfileDetailComponent implements OnInit {
     this.userService.updateCommentForUser(this.user.id, this.model).subscribe(() => {
       this.toaster.commentAdded('Comment Added!');
       this.model.author = this.authService.decodedToken.unique_name;
-      this.user.comments.push(this.model);
     }, err => {
       this.toaster.error(err);
-    })
+    }, () => {
+      // Create a local copy so we're not editing all comments that we're pushed in a single sitting:
+      const comment: any = {};
+      comment.author = this.model.author;
+      comment.authorId = this.model.authorId;
+      comment.content = this.model.content;
+      comment.userId = this.model.userId;
+      this.user.comments.push(comment);
+    });
   }
 }

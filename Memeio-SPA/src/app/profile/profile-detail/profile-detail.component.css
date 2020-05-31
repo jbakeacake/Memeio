@@ -102,3 +102,11 @@ input:focus, input:active, input {
 .dropdown-item:hover {
   color: white;
 }
+
+.ml-90pc {
+  margin-left: 90%;
+}
+
+.mt-20pc {
+  margin-top: 20%;
+}

@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
   login() {
     this.authService.login(this.model).subscribe(
       (next) => {
-        this.toaster.success('Login Successful!');
+        this.toaster.loginSuccess('Login Successful!');
       },
       (err) => {
         this.toaster.error(err);

@@ -2,4 +2,52 @@
     min-height: 200px;
     max-height: 200px;
     overflow: hidden;
+    background-color: rgb(66, 63, 63);
+}
+
+.post-card:hover img {
+    transform: scale(1.2, 1.2);
+    transition-duration: 500ms;
+    transition-timing-function: ease-out;
+    opacity: 0.3;
+}
+
+.post-card img {
+    transform: scale(1.0, 1.0);
+    transition-duration: 500ms;
+    transition-timing-function: ease-out;
+}
+
+.post-card span {
+    opacity: 0;
+}
+
+span {
+    position: absolute;
+    bottom: 30%;
+    left: 0%;
+    right: 0%;
+    margin: 0;
+    padding: 0;
+}
+
+i {
+    color: white;
+    text-shadow: 0 0 10px black;
+}
+
+.fa-thumbs-up:hover {
+    color: green;
+}
+
+.fa-thumbs-down:hover {
+    color: #D9230F;
+}
+
+.fa-comment:hover {
+    color: cadetblue;
+}
+
+.post-card:hover span {
+    opacity: 0.9;
 }

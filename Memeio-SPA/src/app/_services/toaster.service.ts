@@ -17,7 +17,7 @@ export class ToasterService {
   //   });
   // }
 
-  success(msg: string) {
+  loginSuccess(msg: string) {
     // alertify.success(message);
     this.toaster.show({
       theme: 'secondary',
@@ -63,6 +63,14 @@ export class ToasterService {
       position: 'bottomCenter',
       progressBarColor: '#A31621',
       balloon: true
+    });
+  }
+
+  success(msg: string) {
+    this.toaster.success({
+      title: 'OK',
+      message: msg,
+      transitionIn: 'bounceInLeft'
     });
   }
 

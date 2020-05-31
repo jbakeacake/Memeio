@@ -8,15 +8,17 @@
   </div>
   <div class="jumbotron row">
     <div class="col-lg">
-        <img src="{{ user.photoUrl }}" style="max-height: 100px;" />
-        <h1 class="font-weight-bold text-muted mt-2"> {{ user?.username | titlecase }}</h1>
+      <img src="{{ user.photoUrl }}" style="max-height: 100px;" />
+      <h1 class="font-weight-bold text-muted mt-2">
+        {{ user?.username | titlecase }}
+      </h1>
     </div>
     <div class="col-lg" dropdown>
-      <div class="bottom-right">
+      <div class="ml-90pc mt-20pc">
         <i class="btn fas fa-cog fa-3x mb-0 pb-0" dropdownToggle></i>
         <div class="dropdown-menu my-0 p-2" *dropdownMenu>
-            <a class="btn dropdown-item rounded-0">Edit Profile Picture</a>
-            <a class="btn dropdown-item rounded-0">Edit Introduction</a>
+          <a class="btn dropdown-item rounded-0">Edit Profile Picture</a>
+          <a class="btn dropdown-item rounded-0">Edit Introduction</a>
         </div>
       </div>
     </div>
@@ -26,8 +28,8 @@
       <div class="card">
         <div class="card-body" style="min-height: 400px;">
           <h5 class="card-title text-active">About</h5>
-          <hr>
-          <p class="card-text text-muted"> {{user.introduction}}</p>
+          <hr />
+          <p class="card-text text-muted">{{ user.introduction }}</p>
         </div>
       </div>
     </div>
@@ -35,10 +37,9 @@
       <div class="card">
         <div class="card-body comment-scroll" style="min-height: 400px;">
           <h5 class="card-title text-active">Comments</h5>
-          <hr>
+          <hr />
           <div *ngFor="let comment of user.comments.reverse()">
-            <app-profile-comments [comment]="comment">
-            </app-profile-comments>
+            <app-profile-comments [comment]="comment"> </app-profile-comments>
           </div>
         </div>
       </div>
@@ -50,11 +51,27 @@
     </div>
     <div class="col-lg">
       <div class="card" style="height: 70px;">
-        <form id="commentForm" #CommentForm="ngForm" #CommentForm class="pl-4 my-auto" (ngSubmit)="addComment()">
-          <input placeholder="Add a Profile Comment..." name="content" [(ngModel)]="model.content" style="width: 75%;">
+        <form
+          id="commentForm"
+          #CommentForm="ngForm"
+          #CommentForm
+          class="pl-4 my-auto"
+          (ngSubmit)="addComment()"
+        >
+          <input
+            placeholder="Add a Profile Comment..."
+            name="content"
+            [(ngModel)]="model.content"
+            style="width: 75%;"
+          />
         </form>
         <div class="bottom-right" style="top: 25%; left: 80%;">
-          <button type="submit" form="commentForm" class="btn btn-primary" style="min-width: 100px;">
+          <button
+            type="submit"
+            form="commentForm"
+            class="btn btn-primary"
+            style="min-width: 100px;"
+          >
             Post
           </button>
         </div>
@@ -64,12 +81,15 @@
   <div class="row mt-5">
     <div class="col-lg">
       <div class="card text-center posts_scroll" style="height: 940px;">
-        <div class="container" style="font-size: larger">
-          <ngx-tabset customNavClass="nav-test-class" customTabsClass="container pl-0 ml-0">
+        <div class="container" style="font-size: larger;">
+          <ngx-tabset
+            customNavClass="nav-test-class"
+            customTabsClass="container pl-0 ml-0"
+          >
             <ngx-tab tabTitle="Posts">
               <div class="row no-gutters">
                 <div *ngFor="let post of user?.posts" class="col-md-3">
-                  <app-post-card [photo]=post></app-post-card>
+                  <app-post-card [photo]="post"></app-post-card>
                 </div>
               </div>
             </ngx-tab>
@@ -79,9 +99,7 @@
             <ngx-tab tabTitle="Upload">
               <div class="row">
                 <div class="col-lg-6">
-                  <app-photo-upload 
-                  [user]="user">
-                  </app-photo-upload>
+                  <app-photo-upload [user]="user"> </app-photo-upload>
                 </div>
                 <div class="col-lg-6">
                   hellow there
