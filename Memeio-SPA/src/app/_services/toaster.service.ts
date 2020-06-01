@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Ng2IzitoastService } from 'ng2-izitoast';
 import { AuthService } from './auth.service';
+import { timeout } from 'rxjs/operators';
+import { Button } from 'protractor';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +18,29 @@ export class ToasterService {
   //     }
   //   });
   // }
+
+  confirm(msg: string, okCallback: () => any) {
+    this.toaster.question({
+      timeout: 20000,
+      close: false,
+      overlay: true,
+      id: 'question',
+      zindex: '999',
+      title: 'Delete',
+      message: msg,
+      position: 'center',
+      buttons: [
+        ['<button><b>YES</b></button>', (instance, toast) => {
+ 
+          instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+          okCallback();
+      }, true],
+      ['<button>NO</button>', (instance, toast) => {
+          instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+      }],
+    ],
+    });
+  }
 
   loginSuccess(msg: string) {
     // alertify.success(message);

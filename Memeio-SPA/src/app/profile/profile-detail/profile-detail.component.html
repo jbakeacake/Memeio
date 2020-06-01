@@ -90,17 +90,17 @@
         <div class="card">
           <ul class="list-inline m-1">
             <li class="list-inline-item">
-              <button class="btn btn-primary rounded-0 my-auto text-center" [value]="editButtonValue" (click)="enableEditMode($event.target)">
+              <button class="btn btn-primary rounded-0 my-auto text-center" (click)="enableEditMode($event.target);">
                 Edit Collections
               </button>
             </li>
-            <li *ngIf="editMode" class="list-inline-item btn become-red mx-auto border-right">
+            <li *ngIf="editMode" class="list-inline-item btn become-red mx-auto border-right" (click)="selectAll(); all_pushPopPhotoIdList();">
               <i class="far fa-check-circle"></i> Select All
             </li>
             <li *ngIf="editMode" class="list-inline-item btn become-red mx-auto border-right">
               <i class="far fa-arrow-alt-circle-down"></i> Download
             </li>
-            <li *ngIf="editMode" class="list-inline-item btn become-red mx-auto">
+            <li *ngIf="editMode" class="list-inline-item btn become-red mx-auto" (click)="deleteSelected()">
               <i class="far fa-trash-alt"></i> Delete
             </li>
           </ul>
@@ -112,7 +112,7 @@
   <div class="row mt-2">
     <div class="col-lg">
       <div class="card text-center" style="height: 940px;">
-        <div class="container" style="font-size: larger;">
+        <div class="container scroll-container" style="font-size: larger;">
           <ngx-tabset
             customNavClass="nav-test-class"
             customTabsClass="container pl-0 ml-0"
@@ -120,7 +120,7 @@
             <ngx-tab tabTitle="Posts">
               <div class="row no-gutters posts_scroll">
                 <div *ngFor="let post of user?.posts" class="col-md-3">
-                  <app-post-card [photo]="post" [isEditing]="editMode"></app-post-card>
+                  <app-post-card [photo]="post" [isEditing]="editMode" [isSelected]="isAllSelected" (selectionInfo)="pushPopPhotoIdList($event)"></app-post-card>
                 </div>
               </div>
             </ngx-tab>

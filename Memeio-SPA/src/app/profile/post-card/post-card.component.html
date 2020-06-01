@@ -1,7 +1,11 @@
-<div class="post-card" (click)="enlargePhoto()">
+<div class="post-card" (click)="enlargePhoto(); emitSelectionInfo();">
   <div class="media m-1">
     <div class="card-img-wrapper m-auto">
-      <img class="img-fluid rounded-0" src="{{photo.url}}" class="card-img-top">
+      <img
+        class="img-fluid rounded-0"
+        src="{{ photo.url }}"
+        class="card-img-top"
+      />
     </div>
   </div>
   <span *ngIf="!isEditing" class="inline">
@@ -23,5 +27,9 @@
       </li>
     </ul>
   </span>
-  <i *ngIf="isEditing" class="far fa-check-circle fa-2x edit-btn"></i>
+  <i
+    *ngIf="isEditing"
+    class="far fa-check-circle fa-2x"
+    [ngClass]="{'edit-btn': !isSelected,'edit-btn-active': isSelected}"
+  ></i>
 </div>

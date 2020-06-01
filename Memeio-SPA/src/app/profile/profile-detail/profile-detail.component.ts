@@ -14,10 +14,11 @@ import { CommentStmt } from '@angular/compiler';
 })
 export class ProfileDetailComponent implements OnInit {
   userInput: string;
-  editButtonValue: string;
   editMode: boolean;
+  isAllSelected: boolean;
   user: User;
   model: any = {};
+  selectedPhotoIds: number[] = [];
 
   commentSubscription: any;
 
@@ -58,11 +59,62 @@ export class ProfileDetailComponent implements OnInit {
     );
   }
 
+  selectAll() {
+    this.isAllSelected = !this.isAllSelected;
+  }
+
+  deselectAll() {
+    this.selectedPhotoIds = [];
+    this.isAllSelected = false;
+  }
+
+  pushPopPhotoIdList(selectionInfo: any) {
+
+    if (selectionInfo.isSelected) {
+      this.selectedPhotoIds.push(selectionInfo.id);
+    } else {
+      const idx = this.selectedPhotoIds.indexOf(selectionInfo.id);
+      if (idx !== -1) {
+        this.selectedPhotoIds.splice(idx, 1);
+      }
+    }
+    console.log(this.selectedPhotoIds);
+  }
+
+  all_pushPopPhotoIdList() {
+    if (this.isAllSelected) {
+      // Clean our list to ensure no duplicates:
+      this.selectedPhotoIds = [];
+      this.user.posts.forEach(post => {
+        this.selectedPhotoIds.push(post.id);
+      });
+    } else {
+      this.selectedPhotoIds = [];
+    }
+    console.log(this.selectedPhotoIds);
+  }
+
+  deleteSelected() {
+    this.toaster.confirm('Are you sure you want to delete ' + this.selectedPhotoIds.length + ' photos?', () => {
+      this.selectedPhotoIds.forEach(photoId => {
+        console.log('Deleting: ' + photoId);
+        this.userService.deletePhotoForuser(this.user.id, photoId).subscribe(() => {
+          this.user.posts.splice(this.user.posts.findIndex(p => p.id === photoId), 1);
+        }, err => {
+          this.toaster.error('Error: Failed to delete photo');
+        }, () => {
+          this.toaster.success('Photo Deleted!');
+        });
+      });
+    });
+  }
+
   enableEditMode(button) {
     this.editMode = !this.editMode;
     if (!this.editMode) {
       button.textContent = 'Edit Collections';
     } else {
+      this.deselectAll();
       button.textContent = 'Stop Editing';
     }
   }

@@ -14,8 +14,14 @@ img.resize {
 
 .posts_scroll {
   min-height: 300px;
-  max-height: 940px;
+  max-height: 800px;
   overflow-y: auto;
+}
+
+.scroll-container {
+  min-height: 300px;
+  max-height: 940px;
+  overflow-y: hidden;
 }
 
 .posts_scroll::-webkit-scrollbar {

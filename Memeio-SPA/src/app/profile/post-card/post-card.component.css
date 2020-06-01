@@ -46,6 +46,18 @@ span {
     max-width: 31px;
 }
 
+.edit-btn-active {
+    color: red;
+    position: absolute;
+    bottom: 80%;
+    left: 5%;
+    right: 0%;
+    margin: 0;
+    padding: 0;
+    min-width: 31px;
+    max-width: 31px;
+}
+
 i {
     color: white;
     text-shadow: 0 0 10px black;

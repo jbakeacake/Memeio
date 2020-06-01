@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { User } from '../_models/user';
 import { Comments } from '../_models/comments';
+import { Photo } from '../_models/photo';
 
 @Injectable({
   providedIn: 'root',
@@ -29,5 +30,9 @@ export class UserService {
   // acutually ADDS a comment to user profile -- updates the receiving user's comment collection
   updateCommentForUser(userId: number, comment: Comments) {
     return this.http.put(this.baseUrl + 'user/' + userId + '/comment', comment);
+  }
+
+  deletePhotoForuser(userId: number, photoId: number) {
+    return this.http.delete(this.baseUrl + 'user/' + userId + '/photos/' + photoId);
   }
 }
