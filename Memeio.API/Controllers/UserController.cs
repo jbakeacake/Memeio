@@ -63,7 +63,6 @@ namespace Memeio.API.Controllers
             return Ok(comment);
         }
 
-        // TODO : Fix null ref exception when mapping from commentForProfileDto to Comment
         [HttpPut("{userId}/comment")]
         public async Task<IActionResult> AddCommentForUser(int userId, CommentForProfileDto commentForProfileDto) // TODO: Add form/CommentForProfileDto // for now lets just add a simple
         {

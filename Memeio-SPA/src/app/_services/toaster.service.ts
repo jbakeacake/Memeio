@@ -21,6 +21,7 @@ export class ToasterService {
 
   confirm(msg: string, okCallback: () => any) {
     this.toaster.question({
+      theme: 'primary',
       timeout: 20000,
       close: false,
       overlay: true,
@@ -31,7 +32,6 @@ export class ToasterService {
       position: 'center',
       buttons: [
         ['<button><b>YES</b></button>', (instance, toast) => {
- 
           instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
           okCallback();
       }, true],
@@ -96,6 +96,26 @@ export class ToasterService {
       title: 'OK',
       message: msg,
       transitionIn: 'bounceInLeft'
+    });
+  }
+
+  liked(msg: string) {
+    this.toaster.success({
+      title: 'RATE',
+      icon: 'fas fa-thumbs-up',
+      message: msg,
+      position: 'topRight',
+      transitionIn: 'bounceInLeft'
+    });
+  }
+
+  disliked(msg: string) {
+    this.toaster.error({
+      title: 'RATE',
+      icon: 'fas fa-thumbs-down',
+      message: msg,
+      position: 'topLeft',
+      transitionIn: 'bounceInRight'
     });
   }
 

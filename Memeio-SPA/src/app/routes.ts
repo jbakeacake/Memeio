@@ -7,6 +7,7 @@ import { ProfileDetailComponent } from './profile/profile-detail/profile-detail.
 import { ProfileDetailResolver } from './_resolvers/profile-detail.resolver';
 import { SearchResolver } from './_resolvers/search.resolver';
 import { NavComponent } from './nav/nav.component';
+import { GalleryResolver } from './_resolvers/gallery.resolver';
 
 
 export const appRoutes: Routes = [
@@ -17,7 +18,7 @@ export const appRoutes: Routes = [
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],
     children: [
-      { path: 'gallery', component: GalleryMainComponent},
+      { path: 'gallery', component: GalleryMainComponent, resolve: {photoSet: GalleryResolver}},
       { path: 'profiles/:id', component: ProfileDetailComponent, resolve: {user: ProfileDetailResolver}}
     ]
   },

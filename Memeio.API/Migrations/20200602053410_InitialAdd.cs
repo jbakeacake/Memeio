@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Memeio.API.Migrations
 {
-    public partial class AddedCommentsForProfileAndPosts : Migration
+    public partial class InitialAdd : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -61,6 +61,7 @@ namespace Memeio.API.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Author = table.Column<string>(nullable: true),
+                    AuthorId = table.Column<int>(nullable: false),
                     Content = table.Column<string>(nullable: true),
                     UserId = table.Column<int>(nullable: false)
                 },
@@ -82,6 +83,7 @@ namespace Memeio.API.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Author = table.Column<string>(nullable: true),
+                    AuthorId = table.Column<int>(nullable: false),
                     Content = table.Column<string>(nullable: true),
                     PostId = table.Column<int>(nullable: false)
                 },

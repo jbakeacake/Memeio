@@ -45,7 +45,7 @@ namespace Memeio.API.Controllers
         {
             var photoFromRepo = await _repo.GetPhoto(id);
 
-            var photo = _mapper.Map<PhotosForGalleryDto>(photoFromRepo);
+            var photo = _mapper.Map<PhotoForGalleryDto>(photoFromRepo);
 
             return Ok(photo);
         }
@@ -70,7 +70,7 @@ namespace Memeio.API.Controllers
                     var uploadParams = new ImageUploadParams()
                     {
                         File = new FileDescription(file.Name, stream),
-                        Transformation = new Transformation().Width(400).Crop("scale") // scale our images to a decent viewable size
+                        Transformation = new Transformation().Width(600).Crop("scale") // scale our images to a decent viewable size
                     };
                     uploadResult = _cloudinary.Upload(uploadParams); // upload our file and get the link associated with that file
                 }; // dispose of photo data in memory / close stream when done

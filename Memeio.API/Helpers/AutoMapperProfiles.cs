@@ -8,13 +8,18 @@ namespace Memeio.API.Helpers
     {
         public AutoMapperProfiles()
         {
-            CreateMap<Photo, PhotosForGalleryDto>()
+            CreateMap<Photo, PhotoForGalleryDto>()
                 .ForMember(dest => dest.Author,
-                opt => opt.MapFrom(src => src.User.Username));
+                opt => opt.MapFrom(src => src.User.Username))
+                .ForMember(dest => dest.AuthorId,
+                opt => opt.MapFrom(src => src.User.Id));
             CreateMap<Photo, PhotosForProfileDto>()
                 .ForMember(dest => dest.Author,
-                opt => opt.MapFrom(src => src.User.Username));
+                opt => opt.MapFrom(src => src.User.Username))
+                .ForMember(dest => dest.AuthorId,
+                opt => opt.MapFrom(src => src.User.Id));
             CreateMap<PhotoForCreationDto, Photo>();
+            CreateMap<PhotoForGalleryDto, Photo>();
             CreateMap<Photo, PhotoForReturnDto>();
             CreateMap<User, UserForSearchDto>();
             CreateMap<User, UserForProfileDto>();

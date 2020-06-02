@@ -13,7 +13,7 @@ import { GalleryService } from '../_services/gallery.service';
  * This resolver is going to inject data into the initial HTTP request to visit the home page. It contains a list of all users
  * in the database. This data will be used when searching for another user via the search bar.
  */
-export class HomeResolver implements Resolve<Photo[]> {
+export class GalleryResolver implements Resolve<Photo[]> {
   constructor(
     private galleryService: GalleryService,
     private router: Router,

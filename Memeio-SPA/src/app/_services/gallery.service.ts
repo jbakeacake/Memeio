@@ -15,4 +15,7 @@ export class GalleryService {
     return this.http.get<Photo[]>(this.baseUrl);
   }
 
+  updateLikeForPhoto(photoId: number, photo: Photo) {
+    return this.http.put(this.baseUrl + '/' + photoId + '/updateLikes', photo);
+  }
 }

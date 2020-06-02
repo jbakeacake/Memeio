@@ -30,6 +30,7 @@ import { ToasterService } from './_services/toaster.service';
 import { PhotoUploadComponent } from './profile/photo-upload/photo-upload.component';
 import { PostCardComponent } from './profile/post-card/post-card.component';
 import { ProfileCommentsComponent } from './profile/profile-comments/profile-comments.component';
+import { GalleryResolver } from './_resolvers/gallery.resolver';
 
 // This function gets our token from the user's local storage and returns it for usage in our JwtModule
 export function tokenGetter() {
@@ -72,6 +73,7 @@ export function tokenGetter() {
       ToasterService,
       UserService,
       SearchResolver,
+      GalleryResolver,
       ProfileDetailResolver,
       ErrorIntercepterProvider,
       AuthGuard

@@ -7,6 +7,8 @@ export interface User {
     dateCreated: Date;
     lastActive: Date;
     photoUrl: string;
+    likes?: number;
+    dislikes?: number;
     introduction?: string;
     posts?: Photo[];
     comments?: Comments[];

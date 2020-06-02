@@ -12,16 +12,16 @@ img.resize {
   padding-right: 0%;
 }
 
-.posts_scroll {
-  min-height: 300px;
-  max-height: 800px;
-  overflow-y: auto;
-}
-
 .scroll-container {
   min-height: 300px;
   max-height: 940px;
   overflow-y: hidden;
+}
+
+.posts_scroll {
+  min-height: 300px;
+  max-height: 800px;
+  overflow-y: auto;
 }
 
 .posts_scroll::-webkit-scrollbar {

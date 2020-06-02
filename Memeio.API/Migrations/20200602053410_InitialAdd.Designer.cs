@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Memeio.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200528115742_AddedCommentsForProfileAndPosts")]
-    partial class AddedCommentsForProfileAndPosts
+    [Migration("20200602053410_InitialAdd")]
+    partial class InitialAdd
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,6 +26,9 @@ namespace Memeio.API.Migrations
 
                     b.Property<string>("Author")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Content")
                         .HasColumnType("TEXT");
@@ -48,6 +51,9 @@ namespace Memeio.API.Migrations
 
                     b.Property<string>("Author")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Content")
                         .HasColumnType("TEXT");
