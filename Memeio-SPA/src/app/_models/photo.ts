@@ -5,6 +5,7 @@ export interface Photo {
     url: string;
     dateCreated: string;
     author: string;
+    authorId: number;
     likes: number;
     dislikes: number;
     favorites: number;

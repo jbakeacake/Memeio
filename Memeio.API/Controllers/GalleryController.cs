@@ -29,7 +29,7 @@ namespace Memeio.API.Controllers
             return Ok(photosToReturn);
         }
 
-        [HttpGet("{photoId}", Name="GetLikes")]
+        [HttpGet("{photoId}", Name="GetRating")]
         public async Task<IActionResult> GetLikes(int photoId)
         {
             var photoFromRepo = await _repo.GetPhoto(photoId);
@@ -37,7 +37,7 @@ namespace Memeio.API.Controllers
             return Ok(photo);
         }
 
-        [HttpPut("{photoId}")]
+        [HttpPut("{photoId}/addLike")]
         public async Task<IActionResult> UpdateLikes(int photoId, [FromBody]PhotoForGalleryDto photoForGalleryDto)
         {
             //Determine if photo exists:
@@ -54,7 +54,29 @@ namespace Memeio.API.Controllers
             if(await _repo.SaveAll())
             {
                 var photoToReturn = _mapper.Map<PhotoForReturnDto>(photo);
-                return CreatedAtRoute("GetLikes", new { photoId = photo.Id }, photoToReturn);
+                return CreatedAtRoute("GetRating", new { photoId = photo.Id }, photoToReturn);
+            }
+
+            return BadRequest("Could not update likes");
+        }
+                [HttpPut("{photoId}/addDislike")]
+        public async Task<IActionResult> UpdateDislikes(int photoId, [FromBody]PhotoForGalleryDto photoForGalleryDto)
+        {
+            //Determine if photo exists:
+            // Get photo from repo
+            var photoFromRepo = await _repo.GetPhoto(photoId);
+
+            if(photoFromRepo == null)
+                return BadRequest("Photo doesn't exist");
+
+            //Update the number of likes: 
+            photoFromRepo.Dislikes += 1;
+
+            var photo = _mapper.Map<Photo>(photoForGalleryDto);
+            if(await _repo.SaveAll())
+            {
+                var photoToReturn = _mapper.Map<PhotoForReturnDto>(photo);
+                return CreatedAtRoute("GetRating", new { photoId = photo.Id }, photoToReturn);
             }
 
             return BadRequest("Could not update likes");
