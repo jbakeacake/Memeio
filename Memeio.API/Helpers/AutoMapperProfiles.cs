@@ -12,17 +12,28 @@ namespace Memeio.API.Helpers
                 .ForMember(dest => dest.Author,
                 opt => opt.MapFrom(src => src.User.Username))
                 .ForMember(dest => dest.AuthorId,
-                opt => opt.MapFrom(src => src.User.Id));
+                opt => opt.MapFrom(src => src.User.Id))
+                .ForMember(dest => dest.AuthorPhotoUrl,
+                opt => opt.MapFrom(src => src.User.PhotoUrl))
+                .ForMember(dest => dest.DateCreated,
+                opt => opt.MapFrom(src => src.DatePosted.DetermineDate()));
             CreateMap<Photo, PhotosForProfileDto>()
                 .ForMember(dest => dest.Author,
                 opt => opt.MapFrom(src => src.User.Username))
                 .ForMember(dest => dest.AuthorId,
-                opt => opt.MapFrom(src => src.User.Id));
+                opt => opt.MapFrom(src => src.User.Id))
+                .ForMember(dest => dest.DateCreated,
+                opt => opt.MapFrom(src => src.DatePosted.DetermineDate()));
             CreateMap<PhotoForCreationDto, Photo>();
             CreateMap<PhotoForGalleryDto, Photo>();
-            CreateMap<Photo, PhotoForReturnDto>();
+            CreateMap<Photo, PhotoForReturnDto>()
+                .ForMember(dest => dest.AuthorId,
+                opt => opt.MapFrom(src => src.UserId))
+                .ForMember(dest => dest.DateCreated,
+                opt => opt.MapFrom(src => src.DatePosted.DetermineDate()));
             CreateMap<User, UserForSearchDto>();
             CreateMap<User, UserForProfileDto>();
+            CreateMap<UserForUpdateDto, User>();
             CreateMap<CommentForProfile, CommentForProfileToReturnDto>();
             CreateMap<CommentForProfile, CommentForProfileDto>();
             CreateMap<CommentForProfileDto, CommentForProfile>();

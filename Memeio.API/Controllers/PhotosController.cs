@@ -79,6 +79,7 @@ namespace Memeio.API.Controllers
             photoForCreationDto.Url = uploadResult.Uri.ToString();
             photoForCreationDto.PublicId = uploadResult.PublicId;
             photoForCreationDto.Author = userFromRepo.Username;
+            photoForCreationDto.AuthorPhotoUrl = userFromRepo.PhotoUrl;
 
             var photo = _mapper.Map<Photo>(photoForCreationDto);
 

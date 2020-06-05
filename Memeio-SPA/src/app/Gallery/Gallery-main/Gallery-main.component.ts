@@ -11,7 +11,7 @@ import { ToasterService } from 'src/app/_services/toaster.service';
 })
 export class GalleryMainComponent implements OnInit {
   photoSet: Photo[];
-  currentPhotoUrl: string;
+  currentPhoto: Photo;
 
   constructor(
     private galleryService: GalleryService,
@@ -23,8 +23,10 @@ export class GalleryMainComponent implements OnInit {
     this.route.data.subscribe((data) => {
       this.photoSet = data['photoSet'];
     });
+    this.photoSet.unshift(null);
     console.log(this.photoSet);
-    this.currentPhotoUrl = this.photoSet.pop().url;
+    this.pop();
+    console.log(this.currentPhoto);
   }
 
   sendToUrl(url: string) {
@@ -32,7 +34,10 @@ export class GalleryMainComponent implements OnInit {
   }
 
   pop() {
-    this.currentPhotoUrl = this.photoSet.pop().url;
+    if (this.photoSet.length === 0) {
+      return;
+    }
+    this.currentPhoto = this.photoSet.pop();
   }
 
   ratePhoto(event: any) {
@@ -41,11 +46,15 @@ export class GalleryMainComponent implements OnInit {
     }
 
     if (event.key === 'ArrowRight') {
-      this.pop();
-      this.toaster.liked('Liked!');
+      this.galleryService.updateLikeForPhoto(this.currentPhoto.id, this.currentPhoto).subscribe(() => {
+        this.pop();
+        this.toaster.liked('Liked!');
+      });
     } else if (event.key === 'ArrowLeft') {
-      this.pop();
-      this.toaster.disliked('Disliked!');
+      this.galleryService.updateDislikeForPhoto(this.currentPhoto.id, this.currentPhoto).subscribe(() => {
+        this.toaster.disliked('Disliked!');
+        this.pop();
+      });
     }
   }
 }

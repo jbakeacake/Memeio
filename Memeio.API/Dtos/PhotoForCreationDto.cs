@@ -10,6 +10,7 @@ namespace Memeio.API.Dtos
         public IFormFile File { get; set; }
         public string PublicId { get; set; } // Cloudinary comes in the form of characters and numbers, so let pub id be a string
         public string Url { get; set; }
+        public string AuthorPhotoUrl { get; set; }
         public string Author { get; set; }
         public DateTime DatePosted { get; set; }
         public ICollection<CommentForPost> Comments { get; set; }

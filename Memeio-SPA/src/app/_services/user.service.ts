@@ -27,6 +27,14 @@ export class UserService {
     return this.http.get<User>(this.baseUrl + 'user/' + id);
   }
 
+  updateUser(id: number, user: User) {
+    return this.http.put(this.baseUrl + 'user/' + id, user);
+  }
+
+  updateUserPhoto(id: number, user: User) {
+    // TODO: update user photo
+  }
+
   // acutually ADDS a comment to user profile -- updates the receiving user's comment collection
   updateCommentForUser(userId: number, comment: Comments) {
     return this.http.put(this.baseUrl + 'user/' + userId + '/comment', comment);

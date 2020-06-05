@@ -1,12 +1,43 @@
-<div (keyup)="ratePhoto($event)" tabindex="0">
-  <div class="card m-auto" (click)="sendToUrl(currentPhotoUrl)">
-    <img class="img-fluid m-auto" src="{{ currentPhotoUrl }}" />
-    <span class="inline">
-      <ul class="list-inline text-center">
+<div class="mt-5" (keyup)="ratePhoto($event)" tabindex="0">
+  <div class="card m-auto">
+    <div class="card m-auto" (click)="sendToUrl(currentPhoto.url)">
+      <img *ngIf="photoSet.length > 0" class="img-fluid m-auto main-img" src="{{ currentPhoto.url }}" />
+      <img *ngIf="photoSet.length === 0" src="https://res.cloudinary.com/jbakeacake/image/upload/v1591390469/End_Placeholder_watjwg.png" class="img-fluid m-auto main-img">
+      <span *ngIf="photoSet.length > 0" class="inline magnifier">
+        <ul class="list-inline text-center">
+          <li class="list-inline-item">
+            <i class="fas fa-search fa-2x my-auto"></i>
+          </li>
+        </ul>
+      </span>
+    </div>
+    <span
+      class="inline author animate"
+      [routerLink]="['/profiles/' + currentPhoto.authorId]"
+      *ngIf="photoSet.length > 0"
+    >
+      <ul class="inline ml-1 mt-1 p-2">
         <li class="list-inline-item">
-          <i class="fas fa-search fa-2x my-auto"></i>
+          <img
+            class="profile-photo-tiny rounded-circle"
+            src="{{ currentPhoto.authorPhotoUrl }}"
+          />
+        </li>
+        <li class="list-inline-item">
+          <h5 class="p-0 m-0">{{ currentPhoto.author }}</h5>
+          <p class="text-muted p-0 m-0">Posted: {{currentPhoto.dateCreated}}</p>
+        </li>
+        <li class="list-inline-item float-right">
+          <i class="fas fa-thumbs-down"></i> {{currentPhoto.dislikes}}
+        </li>
+        <li class="list-inline-item float-right mr-2">
+          <i class="fas fa-thumbs-up"></i> {{currentPhoto.likes}}
         </li>
       </ul>
     </span>
   </div>
+</div>
+
+<div class="mt-2" *ngFor="let comment of currentPhoto.comments">
+  <app-Gallery-comments [comment]="comment"></app-Gallery-comments>
 </div>

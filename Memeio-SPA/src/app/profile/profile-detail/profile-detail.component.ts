@@ -6,6 +6,7 @@ import { Comments } from 'src/app/_models/comments';
 import { ToasterService } from 'src/app/_services/toaster.service';
 import { AuthService } from 'src/app/_services/auth.service';
 import { CommentStmt } from '@angular/compiler';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-profile-detail',
@@ -14,6 +15,7 @@ import { CommentStmt } from '@angular/compiler';
 })
 export class ProfileDetailComponent implements OnInit {
   userInput: string;
+  editingIntro: boolean;
   editMode: boolean;
   isAllSelected: boolean;
   user: User;
@@ -35,6 +37,14 @@ export class ProfileDetailComponent implements OnInit {
       this.user = data['user'];
     });
     console.log('This pages user:' + this.user.username);
+  }
+
+  isOwner() {
+    if (this.user.id === parseInt(this.authService.decodedToken.nameid, 10)) {
+      return true;
+    }
+
+    return false;
   }
 
   addComment() {
@@ -117,5 +127,14 @@ export class ProfileDetailComponent implements OnInit {
       this.deselectAll();
       button.textContent = 'Stop Editing';
     }
+  }
+
+  saveIntro() {
+    this.userService.updateUser(this.authService.decodedToken.nameid, this.user).subscribe((next) => {
+      this.toaster.success('Profile Updated!');
+      this.editingIntro = false;
+    }, err => {
+      this.toaster.error(err);
+    });
   }
 }

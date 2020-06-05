@@ -61,8 +61,10 @@ export class PhotoUploadComponent implements OnInit {
         const photo = {
           id: res.id,
           url: res.url,
+          authorPhotoUrl: res.authorPhotoUrl,
           dateCreated: res.dateCreated,
           author: res.author,
+          authorId: res.authorId,
           likes: res.likes,
           dislikes: res.likes,
           favorites: res.favorites,

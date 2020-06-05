@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -38,7 +39,7 @@ namespace Memeio.API.Controllers
         }
 
         [HttpPut("{photoId}/addLike")]
-        public async Task<IActionResult> UpdateLikes(int photoId, [FromBody]PhotoForGalleryDto photoForGalleryDto)
+        public async Task<IActionResult> UpdateLikes(int photoId, PhotoForGalleryDto photoForGalleryDto)
         {
             //Determine if photo exists:
             // Get photo from repo
@@ -48,19 +49,18 @@ namespace Memeio.API.Controllers
                 return BadRequest("Photo doesn't exist");
 
             //Update the number of likes: 
-            photoFromRepo.Likes += 1;
+            photoForGalleryDto.Likes += 1;
+            _mapper.Map(photoForGalleryDto, photoFromRepo);
 
-            var photo = _mapper.Map<Photo>(photoForGalleryDto);
             if(await _repo.SaveAll())
             {
-                var photoToReturn = _mapper.Map<PhotoForReturnDto>(photo);
-                return CreatedAtRoute("GetRating", new { photoId = photo.Id }, photoToReturn);
+                return NoContent();
             }
 
-            return BadRequest("Could not update likes");
+            throw new Exception($"Updating photo {photoId} failed on save");
         }
-                [HttpPut("{photoId}/addDislike")]
-        public async Task<IActionResult> UpdateDislikes(int photoId, [FromBody]PhotoForGalleryDto photoForGalleryDto)
+        [HttpPut("{photoId}/addDislike")]
+        public async Task<IActionResult> UpdateDislikes(int photoId, PhotoForGalleryDto photoForGalleryDto)
         {
             //Determine if photo exists:
             // Get photo from repo
@@ -70,16 +70,15 @@ namespace Memeio.API.Controllers
                 return BadRequest("Photo doesn't exist");
 
             //Update the number of likes: 
-            photoFromRepo.Dislikes += 1;
+            photoForGalleryDto.Dislikes += 1;
+            _mapper.Map(photoForGalleryDto, photoFromRepo);
 
-            var photo = _mapper.Map<Photo>(photoForGalleryDto);
             if(await _repo.SaveAll())
             {
-                var photoToReturn = _mapper.Map<PhotoForReturnDto>(photo);
-                return CreatedAtRoute("GetRating", new { photoId = photo.Id }, photoToReturn);
+                return NoContent();
             }
 
-            return BadRequest("Could not update likes");
+            throw new Exception($"Updating photo {photoId} failed on save");
         }
     }
 }

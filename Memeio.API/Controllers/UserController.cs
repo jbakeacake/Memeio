@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -54,6 +55,24 @@ namespace Memeio.API.Controllers
 
             return Ok(userToReturn);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUser(int id, UserForUpdateDto userForUpdateDto)
+        {
+            //Determine if the user editing the profile matches the user being edited:
+            if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var userFromRepo = await _repo.GetUser(id);
+            _mapper.Map(userForUpdateDto, userFromRepo); // Map data from our dto to model
+
+            if (await _repo.SaveAll())
+                return NoContent();
+            
+            throw new Exception($"Updating user {id} failed on save...");
+        }
+
+        [HttpPut("{id}")]
 
         [HttpGet("{userId}/comment/{id}", Name="GetComment")]
         public async Task<IActionResult> GetComment(int id)

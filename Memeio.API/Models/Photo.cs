@@ -7,6 +7,7 @@ namespace Memeio.API.Models
     {
         public int Id { get; set; }
         public string Url { get; set; }
+        public string AuthorPhotoUrl { get; set; }
         public string Author { get; set; }
         public User User { get; set; } //This will act as the author
         public int UserId { get; set; }

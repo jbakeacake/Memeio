@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Http;
 
 namespace Memeio.API.Helpers
@@ -9,6 +10,12 @@ namespace Memeio.API.Helpers
             response.Headers.Add("Application-Error", msg);
             response.Headers.Add("Access-Control-Expose-Headers", "Application-Error");
             response.Headers.Add("Access-Control-Allow-Origin", "*");
+        }
+
+        public static string DetermineDate(this DateTime theDateTime)
+        {
+            var today = DateTime.Today;
+            return today.ToShortDateString();
         }
     }
 }
