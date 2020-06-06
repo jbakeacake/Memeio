@@ -5,10 +5,12 @@ using AutoMapper;
 using Memeio.API.Data;
 using Memeio.API.Dtos;
 using Memeio.API.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Memeio.API.Controllers
 {
+    [Authorize]
     [Route("api/v1/[controller]")]
     [ApiController]
     public class GalleryController : ControllerBase

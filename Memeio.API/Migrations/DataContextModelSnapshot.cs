@@ -16,6 +16,25 @@ namespace Memeio.API.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.0");
 
+            modelBuilder.Entity("Memeio.API.Models.ArchivedPhoto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("PhotoId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ArchivedIds_Tbl");
+                });
+
             modelBuilder.Entity("Memeio.API.Models.CommentForPost", b =>
                 {
                     b.Property<int>("Id")
@@ -142,6 +161,15 @@ namespace Memeio.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users_Tbl");
+                });
+
+            modelBuilder.Entity("Memeio.API.Models.ArchivedPhoto", b =>
+                {
+                    b.HasOne("Memeio.API.Models.User", "User")
+                        .WithMany("Archived")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Memeio.API.Models.CommentForPost", b =>
