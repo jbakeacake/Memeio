@@ -148,6 +148,7 @@ button:hover {
 
 textarea {
   resize: none;
+  width: 100%;
 }
 
 textarea::-webkit-scrollbar {

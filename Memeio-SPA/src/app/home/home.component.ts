@@ -18,8 +18,7 @@ export class HomeComponent implements OnInit {
     private route: ActivatedRoute
   ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   login() {
     this.authService.login(this.model).subscribe(

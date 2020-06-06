@@ -22,7 +22,8 @@ export class ProfileDetailComponent implements OnInit {
   model: any = {};
   selectedPhotoIds: number[] = [];
 
-  commentSubscription: any;
+  totalLikes: number;
+  totalDislikes: number;
 
   constructor(
     private userService: UserService,
@@ -36,6 +37,8 @@ export class ProfileDetailComponent implements OnInit {
       // Have our route examine the data of the current user
       this.user = data['user'];
     });
+    this.calculateTotalLikes();
+    this.calculateTotalDislikes();
     console.log('This pages user:' + this.user.username);
   }
 
@@ -79,7 +82,6 @@ export class ProfileDetailComponent implements OnInit {
   }
 
   pushPopPhotoIdList(selectionInfo: any) {
-
     if (selectionInfo.isSelected) {
       this.selectedPhotoIds.push(selectionInfo.id);
     } else {
@@ -95,7 +97,7 @@ export class ProfileDetailComponent implements OnInit {
     if (this.isAllSelected) {
       // Clean our list to ensure no duplicates:
       this.selectedPhotoIds = [];
-      this.user.posts.forEach(post => {
+      this.user.posts.forEach((post) => {
         this.selectedPhotoIds.push(post.id);
       });
     } else {
@@ -105,18 +107,30 @@ export class ProfileDetailComponent implements OnInit {
   }
 
   deleteSelected() {
-    this.toaster.confirm('Are you sure you want to delete ' + this.selectedPhotoIds.length + ' photos?', () => {
-      this.selectedPhotoIds.forEach(photoId => {
-        console.log('Deleting: ' + photoId);
-        this.userService.deletePhotoForuser(this.user.id, photoId).subscribe(() => {
-          this.user.posts.splice(this.user.posts.findIndex(p => p.id === photoId), 1);
-        }, err => {
-          this.toaster.error('Error: Failed to delete photo');
-        }, () => {
-          this.toaster.success('Photo Deleted!');
+    this.toaster.confirm(
+      'Are you sure you want to delete ' +
+        this.selectedPhotoIds.length +
+        ' photos?',
+      () => {
+        this.selectedPhotoIds.forEach((photoId) => {
+          console.log('Deleting: ' + photoId);
+          this.userService.deletePhotoForuser(this.user.id, photoId).subscribe(
+            () => {
+              this.user.posts.splice(
+                this.user.posts.findIndex((p) => p.id === photoId),
+                1
+              );
+            },
+            (err) => {
+              this.toaster.error('Error: Failed to delete photo');
+            },
+            () => {
+              this.toaster.success('Photo Deleted!');
+            }
+          );
         });
-      });
-    });
+      }
+    );
   }
 
   enableEditMode(button) {
@@ -130,11 +144,30 @@ export class ProfileDetailComponent implements OnInit {
   }
 
   saveIntro() {
-    this.userService.updateUser(this.authService.decodedToken.nameid, this.user).subscribe((next) => {
-      this.toaster.success('Profile Updated!');
-      this.editingIntro = false;
-    }, err => {
-      this.toaster.error(err);
+    this.userService
+      .updateUser(this.authService.decodedToken.nameid, this.user)
+      .subscribe(
+        (next) => {
+          this.toaster.success('Profile Updated!');
+          this.editingIntro = false;
+        },
+        (err) => {
+          this.toaster.error(err);
+        }
+      );
+  }
+
+  calculateTotalLikes() {
+    this.totalLikes = 0;
+    this.user.posts.forEach((post) => {
+      this.totalLikes += post.likes;
+    });
+  }
+
+  calculateTotalDislikes() {
+    this.totalDislikes = 0;
+    this.user.posts.forEach((post) => {
+      this.totalDislikes += post.dislikes;
     });
   }
 }
