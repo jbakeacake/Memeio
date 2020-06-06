@@ -14,8 +14,7 @@ namespace Memeio.API.Helpers
 
         public static string DetermineDate(this DateTime theDateTime)
         {
-            var today = DateTime.Today;
-            return today.ToShortDateString();
+            return theDateTime.ToShortDateString();
         }
     }
 }

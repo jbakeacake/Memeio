@@ -64,6 +64,11 @@ namespace Memeio.API.Controllers
                 return Unauthorized();
 
             var userFromRepo = await _repo.GetUser(id);
+
+            //Check if any changes were made in our DTO:
+            if (userForUpdateDto.Introduction == userFromRepo.Introduction)
+                return NoContent();
+
             _mapper.Map(userForUpdateDto, userFromRepo); // Map data from our dto to model
 
             if (await _repo.SaveAll())
@@ -71,8 +76,6 @@ namespace Memeio.API.Controllers
             
             throw new Exception($"Updating user {id} failed on save...");
         }
-
-        [HttpPut("{id}")]
 
         [HttpGet("{userId}/comment/{id}", Name="GetComment")]
         public async Task<IActionResult> GetComment(int id)
