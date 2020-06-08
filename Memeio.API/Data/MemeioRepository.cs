@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -139,17 +138,6 @@ namespace Memeio.API.Data
             return await _context.Profile_Comments_Tbl
                 .Where(c => c.UserId == id)
                 .ToListAsync();
-        }
-
-        public async Task<IEnumerable<Photo>> GetArchivedPhotos(int id)
-        {
-            var query = 
-            from archivedPhoto in _context.ArchivedIds_Tbl
-            join photos in _context.Photos_Tbl on archivedPhoto.PhotoId equals photos.Id
-            where archivedPhoto.UserId == id
-            select photos;
-
-            return await query.ToListAsync();
         }
     }
 }

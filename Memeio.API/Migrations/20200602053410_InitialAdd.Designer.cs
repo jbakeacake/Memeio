@@ -9,33 +9,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Memeio.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200606204716_InitialCommit")]
-    partial class InitialCommit
+    [Migration("20200602053410_InitialAdd")]
+    partial class InitialAdd
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.0");
-
-            modelBuilder.Entity("Memeio.API.Models.ArchivedPhoto", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("PhotoId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("ArchivedIds_Tbl");
-                });
 
             modelBuilder.Entity("Memeio.API.Models.CommentForPost", b =>
                 {
@@ -94,9 +75,6 @@ namespace Memeio.API.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Author")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("AuthorPhotoUrl")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("DatePosted")
@@ -163,15 +141,6 @@ namespace Memeio.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users_Tbl");
-                });
-
-            modelBuilder.Entity("Memeio.API.Models.ArchivedPhoto", b =>
-                {
-                    b.HasOne("Memeio.API.Models.User", "User")
-                        .WithMany("Archived")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Memeio.API.Models.CommentForPost", b =>

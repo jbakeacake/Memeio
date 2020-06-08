@@ -8,9 +8,9 @@ namespace Memeio.API.Models
         public int Id { get; set; }
         public string Url { get; set; }
         public string AuthorPhotoUrl { get; set; }
-        public string Author { get; set; } // name of the user
-        public virtual User User { get; set; } //This User object contains information about the author
-        public int UserId { get; set; } //The author's Id
+        public string Author { get; set; }
+        public User User { get; set; } //This will act as the author
+        public int UserId { get; set; }
         public DateTime DatePosted { get; set; }
         public ICollection<CommentForPost> Comments { get; set; }
         public string PublicId { get; set; }

@@ -85,7 +85,6 @@ namespace Memeio.API.Controllers
             return Ok(comment);
         }
 
-        //TODO: This should be a POST, not a PUT!!!
         [HttpPut("{userId}/comment")]
         public async Task<IActionResult> AddCommentForUser(int userId, CommentForProfileDto commentForProfileDto) // TODO: Add form/CommentForProfileDto // for now lets just add a simple
         {

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Memeio.API.Migrations
 {
-    public partial class InitialCommit : Migration
+    public partial class InitialAdd : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -29,33 +29,12 @@ namespace Memeio.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ArchivedIds_Tbl",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    UserId = table.Column<int>(nullable: false),
-                    PhotoId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ArchivedIds_Tbl", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ArchivedIds_Tbl_Users_Tbl_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users_Tbl",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Photos_Tbl",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Url = table.Column<string>(nullable: true),
-                    AuthorPhotoUrl = table.Column<string>(nullable: true),
                     Author = table.Column<string>(nullable: true),
                     UserId = table.Column<int>(nullable: false),
                     DatePosted = table.Column<DateTime>(nullable: false),
@@ -120,11 +99,6 @@ namespace Memeio.API.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ArchivedIds_Tbl_UserId",
-                table: "ArchivedIds_Tbl",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Photos_Tbl_UserId",
                 table: "Photos_Tbl",
                 column: "UserId");
@@ -142,9 +116,6 @@ namespace Memeio.API.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "ArchivedIds_Tbl");
-
             migrationBuilder.DropTable(
                 name: "Post_Comments_Tbl");
 
