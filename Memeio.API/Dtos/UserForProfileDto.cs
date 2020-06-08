@@ -14,7 +14,7 @@ namespace Memeio.API.Dtos
         public string Introduction { get; set; }
         public ICollection<CommentForProfile> Comments { get; set; }
         public ICollection<PhotosForProfileDto> Posts { get; set; }
-        public ICollection<PhotosForProfileDto> Archived { get; set; }
+        public ICollection<ArchivedPhoto> Archived { get; set; }
         public int Followers { get; set; }
         public int Follows { get; set; }
     }

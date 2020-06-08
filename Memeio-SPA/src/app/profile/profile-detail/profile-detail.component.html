@@ -2,7 +2,9 @@
   <div class="row">
     <div class="col-sm-8 col-md-12 col-lg-12 text-left">
       <button class="btn border-right">Total Likes: {{ totalLikes }}</button>
-      <button class="btn border-right">Total Dislikes: {{ totalDislikes }}</button>
+      <button class="btn border-right">
+        Total Dislikes: {{ totalDislikes }}
+      </button>
       <button class="btn">Posts: {{ user?.posts.length }}</button>
     </div>
   </div>
@@ -19,7 +21,9 @@
         <i class="btn fas fa-cog fa-3x mb-0 pb-0" dropdownToggle></i>
         <div class="dropdown-menu ml-90pc" *dropdownMenu>
           <a class="btn dropdown-item rounded-0">Edit Profile Picture</a>
-          <a class="btn dropdown-item rounded-0" (click)="editingIntro=true;">Edit Introduction</a>
+          <a class="btn dropdown-item rounded-0" (click)="editingIntro = true"
+            >Edit Introduction</a
+          >
         </div>
       </div>
     </div>
@@ -31,10 +35,23 @@
         <div class="card-body" style="min-height: 400px;">
           <h5 class="card-title text-active">About</h5>
           <hr />
-          <p *ngIf="!editingIntro" class="card-text text-muted">{{ user.introduction }}</p>
-          <form *ngIf="editingIntro" class="container m-0 p-0 text-center" (ngSubmit)="saveIntro()">
-            <textarea name="introduction" [(ngModel)]="user.introduction" cols="75" rows="15"></textarea>
-            <button type="submit" class="btn btn-primary rounded-0">Save Changes</button>
+          <p *ngIf="!editingIntro" class="card-text text-muted">
+            {{ user.introduction }}
+          </p>
+          <form
+            *ngIf="editingIntro"
+            class="container m-0 p-0 text-center"
+            (ngSubmit)="saveIntro()"
+          >
+            <textarea
+              name="introduction"
+              [(ngModel)]="user.introduction"
+              cols="75"
+              rows="15"
+            ></textarea>
+            <button type="submit" class="btn btn-primary rounded-0">
+              Save Changes
+            </button>
           </form>
         </div>
       </div>
@@ -95,17 +112,31 @@
         <div class="card">
           <ul class="list-inline m-1">
             <li class="list-inline-item">
-              <button class="btn btn-primary rounded-0 my-auto text-center" (click)="enableEditMode($event.target);">
+              <button
+                class="btn btn-primary rounded-0 my-auto text-center"
+                (click)="enableEditMode($event.target)"
+              >
                 Edit Collections
               </button>
             </li>
-            <li *ngIf="editMode" class="list-inline-item btn become-red mx-auto border-right" (click)="selectAll(); all_pushPopPhotoIdList();">
+            <li
+              *ngIf="editMode"
+              class="list-inline-item btn become-red mx-auto border-right"
+              (click)="selectAll(); all_pushPopList()"
+            >
               <i class="far fa-check-circle"></i> Select All
             </li>
-            <li *ngIf="editMode" class="list-inline-item btn become-red mx-auto border-right">
+            <li
+              *ngIf="editMode"
+              class="list-inline-item btn become-red mx-auto border-right"
+            >
               <i class="far fa-arrow-alt-circle-down"></i> Download
             </li>
-            <li *ngIf="editMode" class="list-inline-item btn become-red mx-auto" (click)="deleteSelected()">
+            <li
+              *ngIf="editMode"
+              class="list-inline-item btn become-red mx-auto"
+              (click)="deleteSelected()"
+            >
               <i class="far fa-trash-alt"></i> Delete
             </li>
           </ul>
@@ -119,18 +150,33 @@
       <div class="card text-center" style="height: 940px;">
         <div class="container scroll-container" style="font-size: larger;">
           <ngx-tabset
+            (onSelect)="deselectAll(); getCurrentTab($event);"
             customNavClass="nav-test-class"
             customTabsClass="container pl-0 ml-0"
           >
             <ngx-tab tabTitle="Posts">
               <div class="row no-gutters posts_scroll">
                 <div *ngFor="let post of user?.posts" class="col-md-3">
-                  <app-post-card [photo]="post" [isEditing]="editMode" [isSelected]="isAllSelected" (selectionInfo)="pushPopPhotoIdList($event)"></app-post-card>
+                  <app-post-card
+                    [photo]="post"
+                    [isEditing]="editMode"
+                    [isSelected]="isAllSelected"
+                    (selectionInfo)="pushPopPhotoIdList($event)"
+                  ></app-post-card>
                 </div>
               </div>
             </ngx-tab>
             <ngx-tab *ngIf="isOwner()" tabTitle="Archive">
-              Archive Collection goes here
+              <div class="row no-gutters posts_scroll">
+                <div *ngFor="let archive of archivedPhotos" class="col-md-3">
+                  <app-archive-card
+                    [photo]="archive"
+                    [isEditing]="editMode"
+                    [isSelected]="isAllSelected"
+                    (selectionInfo)="pushPopPhotoIdList($event)"
+                  ></app-archive-card>
+                </div>
+              </div>
             </ngx-tab>
             <ngx-tab *ngIf="isOwner()" tabTitle="Upload">
               <div class="row">

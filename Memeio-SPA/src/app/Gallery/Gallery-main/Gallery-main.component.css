@@ -28,6 +28,10 @@ div:focus {
     bottom: 90%;
 }
 
+.card:hover .favorite {
+    bottom: 0%;
+}
+
 .card:hover .main-img {
     opacity: 0.3;
 }
@@ -61,14 +65,32 @@ div:focus {
     width: 100%;
     height: 10%;
     bottom: 100%;
-    left: 0%;
+    left: 0.5%;
     right: 80%;
+    margin: 0;
+    padding: 0;
+}
+
+.favorite {
+    color: white;
+    background-color: black;
+    position: absolute;
+    width: 100%;
+    height: 10%;
+    bottom: -10%;
+    left: 0.5%;
+    right: 0%;
     margin: 0;
     padding: 0;
 }
 
 .author:hover {
     color: red;
+}
+
+.favorite:hover .fas{
+    color: yellow;
+    text-shadow: 0 0 10px yellow;
 }
 
 .profile-photo-tiny {

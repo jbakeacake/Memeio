@@ -26,6 +26,11 @@ namespace Memeio.API.Data
             _context.Remove(entity);
         }
 
+        public void DeleteArchivedWhere(int photoId)
+        {
+            _context.Remove(_context.ArchivedIds_Tbl.Where(a => a.PhotoId == photoId).ToList());
+        }
+
         /*
         GetPhoto(id : int) : Task<Photo>
 
@@ -86,7 +91,7 @@ namespace Memeio.API.Data
         */
         public async Task<User> GetUser(int id)
         {
-            var user = await _context.Users_Tbl.Include(u => u.Posts).Include(u => u.Comments).FirstOrDefaultAsync(u => u.Id == id);
+            var user = await _context.Users_Tbl.Include(u => u.Posts).Include(u => u.Comments).Include(a => a.Archived).FirstOrDefaultAsync(u => u.Id == id);
             return user;
         }
 
@@ -141,15 +146,45 @@ namespace Memeio.API.Data
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Photo>> GetArchivedPhotos(int id)
+        public async Task<ArchivedPhoto> A_GetArchivedPhoto(int id)
         {
-            var query = 
-            from archivedPhoto in _context.ArchivedIds_Tbl
-            join photos in _context.Photos_Tbl on archivedPhoto.PhotoId equals photos.Id
-            where archivedPhoto.UserId == id
-            select photos;
+            return await _context.ArchivedIds_Tbl
+                .Where(a => a.Id == id)
+                .FirstOrDefaultAsync();
+        }
 
-            return await query.ToListAsync();
+        public async Task<IEnumerable<ArchivedPhoto>> A_GetArchivedPhotos(int id)
+        {
+            return await _context.ArchivedIds_Tbl
+                .Where(a => a.UserId == id)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Photo>> P_GetArchivedPhotos(int id)
+        {
+            // var query = 
+            // from archivedPhoto in _context.ArchivedIds_Tbl
+            // join photos in _context.Photos_Tbl on archivedPhoto.PhotoId equals photos.Id
+            // where archivedPhoto.UserId == id
+            // select photos;
+
+            // return await query.ToListAsync();
+            return await _context.Photos_Tbl
+                .Join(
+                _context.ArchivedIds_Tbl,
+                photo => photo.Id,
+                archive => archive.PhotoId,
+                (photo, archive) => new { Photo = photo, ArchivedPhoto = archive })
+                .Where(PhotosAndArchive => PhotosAndArchive.ArchivedPhoto.UserId == id)
+                .Select(PhotosAndArchive => PhotosAndArchive.Photo)
+                .ToListAsync();
+        }
+
+        public async Task<bool> ArchivedExists(int id, int PhotoId)
+        {
+            if (await _context.ArchivedIds_Tbl.AnyAsync(x => x.PhotoId == PhotoId && x.UserId == id))
+                return true;
+            return false;
         }
     }
 }

@@ -16,7 +16,7 @@ using Microsoft.Extensions.Options;
 
 namespace Memeio.API.Controllers
 {
-    [Authorize]
+
     [Route("api/v1/user/{userId}/[controller]")]
     [ApiController]
     public class PhotosController : ControllerBase
@@ -103,7 +103,7 @@ namespace Memeio.API.Controllers
             
             var userFromRepo = await _repo.GetUser(userId);
 
-            //Determine if any posts from the user correlate with the id of the photo we want to delete
+            //Determine if any posts from the user correlate with the photo we want to delete
             if(!userFromRepo.Posts.Any(p => p.Id == id))
                 return Unauthorized();
             
@@ -121,6 +121,7 @@ namespace Memeio.API.Controllers
                 if(result.Result == "ok") // if we have successfully destroyed the cloudinary photo, then it MUST be deleted from our db as well
                 {
                     _repo.Delete(photoFromRepo);
+                    _repo.DeleteArchivedWhere(photoFromRepo.Id);
                 }
             }
 

@@ -1,0 +1,89 @@
+.media {
+    min-height: 200px;
+    max-height: 200px;
+    overflow: hidden;
+    background-color: rgb(66, 63, 63);
+}
+
+.post-card {
+    cursor: pointer;
+}
+
+.post-card:hover img {
+    transform: scale(1.05, 1.05);
+    transition-duration: 500ms;
+    transition-timing-function: ease-out;
+    opacity: 0.3;
+}
+
+.post-card img {
+    transform: scale(1.0, 1.0);
+    transition-duration: 500ms;
+    transition-timing-function: ease-out;
+}
+
+.post-card span {
+    opacity: 0;
+}
+
+span {
+    position: absolute;
+    bottom: 50%;
+    left: 0%;
+    right: 0%;
+    margin: 0;
+    padding: 0;
+}
+
+.edit-btn {
+    position: absolute;
+    bottom: 80%;
+    left: 5%;
+    right: 0%;
+    margin: 0;
+    padding: 0;
+    min-width: 31px;
+    max-width: 31px;
+}
+
+.edit-btn-active {
+    color: red;
+    position: absolute;
+    bottom: 80%;
+    left: 5%;
+    right: 0%;
+    margin: 0;
+    padding: 0;
+    min-width: 31px;
+    max-width: 31px;
+}
+
+i {
+    color: white;
+    text-shadow: 0 0 10px black;
+}
+
+.fa-thumbs-up:hover {
+    color: green;
+}
+
+.fa-thumbs-down:hover {
+    color: #D9230F;
+}
+
+.fa-comment:hover {
+    color: cadetblue;
+}
+
+.post-card:hover span {
+    opacity: 0.9;
+}
+
+.fa-check-circle {
+    opacity: 0.9;
+}
+
+.fa-check-circle:hover{
+    opacity: 1;
+    color:red;
+}

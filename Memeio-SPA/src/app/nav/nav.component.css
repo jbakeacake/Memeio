@@ -43,3 +43,8 @@ li:hover, li:active, li:focus {
 .dropdown-item:hover {
     color: white;
 }
+
+.isActive {
+    color: #D9230F;
+    text-shadow: none;
+}
