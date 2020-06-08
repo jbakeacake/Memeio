@@ -32,6 +32,8 @@ import { PostCardComponent } from './profile/post-card/post-card.component';
 import { ProfileCommentsComponent } from './profile/profile-comments/profile-comments.component';
 import { GalleryResolver } from './_resolvers/gallery.resolver';
 import { GalleryService } from './_services/gallery.service';
+import { ArchiveService } from './_services/archive.service';
+import { ArchiveCardComponent } from './profile/archive-card/archive-card.component';
 
 // This function gets our token from the user's local storage and returns it for usage in our JwtModule
 export function tokenGetter() {
@@ -49,6 +51,7 @@ export function tokenGetter() {
       ProfileDetailComponent,
       PhotoUploadComponent,
       PostCardComponent,
+      ArchiveCardComponent,
       ProfileCommentsComponent
    ],
    imports: [
@@ -71,6 +74,7 @@ export function tokenGetter() {
    ],
    providers: [
       AuthService,
+      ArchiveService,
       ToasterService,
       GalleryService,
       UserService,

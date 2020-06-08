@@ -35,6 +35,17 @@
         </li>
       </ul>
     </span>
+    <span
+      class="inline favorite animate"
+      *ngIf="photoSet.length > 0"
+      (click)="archivePhoto()"
+    >
+      <ul class="inline ml-1 mt-1 p-2">
+        <li class="list-inline-item float-right mr-2">
+          <i class="fas fa-star fa-2x"></i>
+        </li>
+      </ul>
+    </span>
   </div>
 </div>
 

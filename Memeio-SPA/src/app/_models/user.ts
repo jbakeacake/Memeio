@@ -11,6 +11,7 @@ export interface User {
     dislikes?: number;
     introduction?: string;
     posts?: Photo[];
+    archived?: Photo[];
     comments?: Comments[];
     followers?: number;
     follows?: number;

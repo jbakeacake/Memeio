@@ -26,6 +26,35 @@ namespace Memeio.API.Data
         }
 
         /*
+        GetUser(id : int) : Task<bool>
+
+        Saves any changes made to our database. Returns true if save was successful.
+
+        Return : User >> User object translated from Database
+        */
+        public async Task<bool> SaveAll()
+        {
+            return await _context.SaveChangesAsync() > 0; // If positive, changes were saved successfully
+        }
+
+        /*
+        GetUser(id : int) : Task<User>
+
+        Queries our database for a user provided the Id of the user. Returns a "User" object. Additionally, this
+        "User" object includes information relative to all of their posts, their followers/follows, profile comments, and basic
+        user information.
+
+        id : int >> Id of the user to be queried.
+
+        Return : Task<User> >> User object translated from Database
+        */
+        public async Task<User> GetUser(int id)
+        {
+            var user = await _context.Users_Tbl.Include(u => u.Posts).Include(u => u.Comments).Include(u => u.Archived).FirstOrDefaultAsync(u => u.Id == id);
+            return user;
+        }
+
+        /*
         GetPhoto(id : int) : Task<Photo>
 
         Queries our database for a photo provided the Id of the photo. Returns a "Photo" object.
@@ -51,8 +80,60 @@ namespace Memeio.API.Data
         public async Task<IEnumerable<Photo>> GetPhotoSet()
         {
             int numRecords = 500;
-            var photos = await _context.Photos_Tbl.OrderByDescending(p => p.DatePosted).Take(numRecords).ToListAsync();
+            var photos = await _context.Photos_Tbl
+                            .OrderByDescending(p => p.DatePosted)
+                            .Take(numRecords)
+                            .ToListAsync();
             return photos;
+        }
+
+        /*
+        GetArchivedPhoto(id : int) : Task<ArchivedPhoto>
+
+        Queries our database for the archived photo in our User's collection.
+
+        id : int >> Id of the archived photo to be queried
+        
+        Return : Task<ArchivedPhoto> >> Photo object to be returned
+        */
+        public async Task<ArchivedPhoto> GetArchivedPhoto(int id)
+        {
+            var archivedPhoto = await _context.Archived_Tbl
+                                    .Where(a => a.Id == id)
+                                    .FirstOrDefaultAsync();
+            return archivedPhoto;
+        }
+
+        /*
+        GetArchivedPhotos(id : int) : Task<ArchivedPhoto>
+
+        Queries our database for the archived photo in our User's collection.
+
+        id : int >> Id of the User
+        
+        Return : Task<IEnumerable<ArchivedPhoto>> >> Photo Collection to be returned
+        */
+        public async Task<IEnumerable<ArchivedPhoto>> GetArchivedPhotos(int id)
+        {
+            var archivedPhotos = await _context.Archived_Tbl
+                                    .Where(a => a.UserId == id)
+                                    .ToListAsync();
+            return archivedPhotos;
+        }
+
+        /*
+        ArchivedPhotoExists(userId : int, id : int) : Task<bool>
+
+        Determines if an archived photo already exists for a user.
+
+        userId : int >> Id of the user
+        id : int >> Id of the photo
+
+        return : bool >> True if the photo exists in the user's archive, false otherwise
+        */
+        public async Task<bool> ArchivedPhotoExists(int userId, int id)
+        {
+            return await _context.Archived_Tbl.AnyAsync(a => a.UserId == userId && a.PhotoId == id);
         }
 
         /*
@@ -73,23 +154,6 @@ namespace Memeio.API.Data
         }
 
         /*
-        GetUser(id : int) : Task<User>
-
-        Queries our database for a user provided the Id of the user. Returns a "User" object. Additionally, this
-        "User" object includes information relative to all of their posts, their followers/follows, profile comments, and basic
-        user information.
-
-        id : int >> Id of the user to be queried.
-
-        Return : Task<User> >> User object translated from Database
-        */
-        public async Task<User> GetUser(int id)
-        {
-            var user = await _context.Users_Tbl.Include(u => u.Posts).Include(u => u.Comments).FirstOrDefaultAsync(u => u.Id == id);
-            return user;
-        }
-
-        /*
         GetUsers() : Task<IEnumerable<User>>
 
         Queries our database for a list of ALL users. Returns an enumerable containing all users.
@@ -100,18 +164,6 @@ namespace Memeio.API.Data
         {
             var users = await _context.Users_Tbl.Include(u => u.Posts).Include(u => u.Comments).ToListAsync();
             return users;
-        }
-
-        /*
-        GetUser(id : int) : Task<bool>
-
-        Saves any changes made to our database. Returns true if save was successful.
-
-        Return : User >> User object translated from Database
-        */
-        public async Task<bool> SaveAll()
-        {
-            return await _context.SaveChangesAsync() > 0; // If positive, changes were saved successfully
         }
 
         public async Task<CommentForProfile> GetUserComment(int id)

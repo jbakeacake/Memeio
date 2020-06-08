@@ -31,6 +31,17 @@ namespace Memeio.API.Helpers
                 opt => opt.MapFrom(src => src.UserId))
                 .ForMember(dest => dest.DateCreated,
                 opt => opt.MapFrom(src => src.DatePosted.DetermineDate()));
+            CreateMap<ArchivedPhoto, Photo>();
+            CreateMap<ArchivedPhoto, PhotosForProfileDto>();
+            CreateMap<Photo, ArchivedPhoto>()
+                .ForMember(dest => dest.DateCreated,
+                opt => opt.MapFrom(src => src.DatePosted.DetermineDate()));
+            CreateMap<ArchivedPhotoForProfileDto, ArchivedPhoto>()
+                .ForMember(dest => dest.UserId,
+                opt => opt.MapFrom(src => src.AuthorId));
+            CreateMap<ArchivedPhotoForCreationDto, ArchivedPhoto>()
+                .ForMember(dest => dest.UserId,
+                opt => opt.MapFrom(src => src.AuthorId));
             CreateMap<User, UserForSearchDto>();
             CreateMap<User, UserForProfileDto>();
             CreateMap<UserForUpdateDto, User>();

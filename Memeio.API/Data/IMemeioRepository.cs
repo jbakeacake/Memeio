@@ -12,6 +12,9 @@ namespace Memeio.API.Data
         Task<User> GetUser(int id);
         Task<IEnumerable<User>> GetUsers();
         Task<Photo> GetPhoto(int id);
+        Task<ArchivedPhoto> GetArchivedPhoto(int id);
+        Task<IEnumerable<ArchivedPhoto>> GetArchivedPhotos(int id);
+        Task<bool> ArchivedPhotoExists(int userId, int id);
         Task<IEnumerable<Photo>> GetPhotoSet();
         Task<IEnumerable<Photo>> GetUserPhotos(int id);
         Task<CommentForProfile> GetUserComment(int id);

@@ -15,6 +15,7 @@ namespace Memeio.API.Models
         public string Introduction { get; set; }
         public ICollection<CommentForProfile> Comments { get; set; }
         public ICollection<Photo> Posts { get; set; }
+        public ICollection<ArchivedPhoto> Archived { get; set; }
         public int Followers { get; set; }
         public int Follows { get; set; }
         

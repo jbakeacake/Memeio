@@ -40,7 +40,7 @@ namespace Memeio.API.Controllers
             var userToCreate = new User
             {
                 Username = userForRegisterDto.Username,
-                PhotoUrl = "https://res-console.cloudinary.com/jbakeacake/thumbnails/v1/image/upload/v1591390502/RGVmYXVsdF9QaG90b19xZ3hqZ2w=/preview"
+                PhotoUrl = "https://res.cloudinary.com/jbakeacake/image/upload/v1591390502/Default_Photo_qgxjgl.png"
             };
 
             var createdUser = await _repo.Register(userToCreate, userForRegisterDto.Password);

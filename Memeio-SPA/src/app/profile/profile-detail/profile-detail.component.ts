@@ -7,6 +7,7 @@ import { ToasterService } from 'src/app/_services/toaster.service';
 import { AuthService } from 'src/app/_services/auth.service';
 import { CommentStmt } from '@angular/compiler';
 import { NgForm } from '@angular/forms';
+import { ArchiveService } from 'src/app/_services/archive.service';
 
 @Component({
   selector: 'app-profile-detail',
@@ -21,6 +22,7 @@ export class ProfileDetailComponent implements OnInit {
   user: User;
   model: any = {};
   selectedPhotoIds: number[] = [];
+  currentTabIdx: number;
 
   totalLikes: number;
   totalDislikes: number;
@@ -28,6 +30,7 @@ export class ProfileDetailComponent implements OnInit {
   constructor(
     private userService: UserService,
     private authService: AuthService,
+    private archiveService: ArchiveService,
     private route: ActivatedRoute,
     private toaster: ToasterService
   ) {}
@@ -40,6 +43,7 @@ export class ProfileDetailComponent implements OnInit {
     this.calculateTotalLikes();
     this.calculateTotalDislikes();
     console.log('This pages user:' + this.user.username);
+    console.log(this.user);
   }
 
   isOwner() {
@@ -106,7 +110,47 @@ export class ProfileDetailComponent implements OnInit {
     console.log(this.selectedPhotoIds);
   }
 
+  getCurrentTab(event: any) {
+    this.currentTabIdx = event;
+    console.log(this.currentTabIdx);
+  }
+
   deleteSelected() {
+    if (this.currentTabIdx === 0) {
+      this.deleteSelectedPosts();
+    } else if (this.currentTabIdx === 1) {
+      this.deleteSelectedArchive();
+    }
+  }
+
+  deleteSelectedArchive() {
+    this.toaster.confirm(
+      'Are you sure you want to delete ' +
+        this.selectedPhotoIds.length +
+        ' archived photos?',
+      () => {
+        this.selectedPhotoIds.forEach((archiveId) => {
+          console.log('Deleting: ' + archiveId);
+          this.archiveService.deleteFromUserArchive(this.user.id, archiveId).subscribe(
+            () => {
+              this.user.archived.splice(
+                this.user.archived.findIndex((a) => a.id === archiveId),
+                1
+              );
+            },
+            (err) => {
+              this.toaster.error('Error: Failed to delete archived photo');
+            },
+            () => {
+              this.toaster.success('Photo Deleted from Archive!');
+            }
+          );
+        });
+      }
+    );
+  }
+
+  deleteSelectedPosts() {
     this.toaster.confirm(
       'Are you sure you want to delete ' +
         this.selectedPhotoIds.length +

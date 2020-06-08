@@ -121,6 +121,7 @@
           <ngx-tabset
             customNavClass="nav-test-class"
             customTabsClass="container pl-0 ml-0"
+            (onSelect)="getCurrentTab($event)"
           >
             <ngx-tab tabTitle="Posts">
               <div class="row no-gutters posts_scroll">
@@ -130,7 +131,11 @@
               </div>
             </ngx-tab>
             <ngx-tab *ngIf="isOwner()" tabTitle="Archive">
-              Archive Collection goes here
+              <div class="row no-gutters posts_scroll">
+                <div *ngFor="let archive of user?.archived" class="col-md-3">
+                  <app-archive-card [photo]="archive" [isEditing]="editMode" [isSelected]="isAllSelected" (selectionInfo)="pushPopPhotoIdList($event)"></app-archive-card>
+                </div>
+              </div>
             </ngx-tab>
             <ngx-tab *ngIf="isOwner()" tabTitle="Upload">
               <div class="row">
