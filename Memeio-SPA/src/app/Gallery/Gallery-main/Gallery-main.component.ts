@@ -3,8 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Photo } from 'src/app/_models/photo';
 import { GalleryService } from 'src/app/_services/gallery.service';
 import { ToasterService } from 'src/app/_services/toaster.service';
-import { ArchiveService } from 'src/app/_services/archive.service';
-import { AuthService } from 'src/app/_services/auth.service';
 
 @Component({
   selector: 'app-Gallery-main',
@@ -17,8 +15,6 @@ export class GalleryMainComponent implements OnInit {
 
   constructor(
     private galleryService: GalleryService,
-    private archiveService: ArchiveService,
-    private authService: AuthService,
     private route: ActivatedRoute,
     private toaster: ToasterService
   ) {}
@@ -56,18 +52,9 @@ export class GalleryMainComponent implements OnInit {
       });
     } else if (event.key === 'ArrowLeft') {
       this.galleryService.updateDislikeForPhoto(this.currentPhoto.id, this.currentPhoto).subscribe(() => {
-        this.pop();
         this.toaster.disliked('Disliked!');
+        this.pop();
       });
     }
-  }
-
-  addPhotoToArchive() {
-    console.log(this.currentPhoto);
-    this.archiveService.addPhotoToArchive(parseInt(this.authService.decodedToken.nameid, 10), this.currentPhoto).subscribe(() => {
-      this.toaster.success('Added to archive!');
-    }, err => {
-      this.toaster.error(err);
-    });
   }
 }

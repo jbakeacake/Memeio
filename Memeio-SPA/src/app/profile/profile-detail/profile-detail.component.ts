@@ -7,8 +7,6 @@ import { ToasterService } from 'src/app/_services/toaster.service';
 import { AuthService } from 'src/app/_services/auth.service';
 import { CommentStmt } from '@angular/compiler';
 import { NgForm } from '@angular/forms';
-import { Photo } from 'src/app/_models/photo';
-import { ArchiveService } from 'src/app/_services/archive.service';
 
 @Component({
   selector: 'app-profile-detail',
@@ -20,10 +18,7 @@ export class ProfileDetailComponent implements OnInit {
   editingIntro: boolean;
   editMode: boolean;
   isAllSelected: boolean;
-  currentTabActive: number;
   user: User;
-  archivedPhotos: any;
-  archivedIds: any;
   model: any = {};
   selectedPhotoIds: number[] = [];
 
@@ -32,7 +27,6 @@ export class ProfileDetailComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private archiveService: ArchiveService,
     private authService: AuthService,
     private route: ActivatedRoute,
     private toaster: ToasterService
@@ -45,29 +39,7 @@ export class ProfileDetailComponent implements OnInit {
     });
     this.calculateTotalLikes();
     this.calculateTotalDislikes();
-    this.getArchivedIfOwner();
     console.log('This pages user:' + this.user.username);
-  }
-
-  getArchivedIfOwner() {
-    if (this.user.id === parseInt(this.authService.decodedToken.nameid, 10)) {
-      this.archiveService.getArchivedPhotos(this.user.id).subscribe(
-        (res) => {
-          this.archivedPhotos = res;
-        },
-        (err) => {
-          this.toaster.error(err);
-        }
-      );
-      this.archiveService.getArchivedIds(this.user.id).subscribe(
-        (res) => {
-          this.archivedIds = res;
-        },
-        (err) => {
-          this.toaster.error(err);
-        }
-      );
-    }
   }
 
   isOwner() {
@@ -121,14 +93,6 @@ export class ProfileDetailComponent implements OnInit {
     console.log(this.selectedPhotoIds);
   }
 
-  all_pushPopList() {
-    if (this.currentTabActive === 0) {
-      this.all_pushPopPhotoIdList();
-    } else {
-      this.all_pushPopArchiveIdList();
-    }
-  }
-
   all_pushPopPhotoIdList() {
     if (this.isAllSelected) {
       // Clean our list to ensure no duplicates:
@@ -142,20 +106,7 @@ export class ProfileDetailComponent implements OnInit {
     console.log(this.selectedPhotoIds);
   }
 
-  all_pushPopArchiveIdList() {
-    if (this.isAllSelected) {
-      // Clean our list to ensure no duplicates:
-      this.selectedPhotoIds = [];
-      this.archivedIds.forEach((a) => {
-        this.selectedPhotoIds.push(a.id);
-      });
-    } else {
-      this.selectedPhotoIds = [];
-    }
-    console.log(this.selectedPhotoIds);
-  }
-
-  deleteSelectedPosts() {
+  deleteSelected() {
     this.toaster.confirm(
       'Are you sure you want to delete ' +
         this.selectedPhotoIds.length +
@@ -177,47 +128,6 @@ export class ProfileDetailComponent implements OnInit {
               this.toaster.success('Photo Deleted!');
             }
           );
-        });
-      }
-    );
-  }
-
-  getCurrentTab(event: any) {
-    this.currentTabActive = event;
-  }
-
-  deleteSelected() {
-    if (this.currentTabActive === 0) {
-      this.deleteSelectedPosts();
-    } else {
-      this.deleteSelectedArchived();
-    }
-  }
-
-  deleteSelectedArchived() {
-    this.toaster.confirm(
-      'Are you sure you want to delete ' +
-        this.selectedPhotoIds.length +
-        ' photos?',
-      () => {
-        this.selectedPhotoIds.forEach((photoId) => {
-          console.log('Deleting: ' + photoId);
-          this.archiveService
-            .deleteArchivedPhoto(this.user.id, photoId)
-            .subscribe(
-              () => {
-                this.user.posts.splice(
-                  this.user.posts.findIndex((p) => p.id === photoId),
-                  1
-                );
-              },
-              (err) => {
-                this.toaster.error(err);
-              },
-              () => {
-                this.toaster.success('Photo Deleted!');
-              }
-            );
         });
       }
     );

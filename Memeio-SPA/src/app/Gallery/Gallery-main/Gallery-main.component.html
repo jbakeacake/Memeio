@@ -11,7 +11,6 @@
         </ul>
       </span>
     </div>
-    <!-- Begin Author Div -->
     <span
       class="inline author animate"
       [routerLink]="['/profiles/' + currentPhoto.authorId]"
@@ -33,18 +32,6 @@
         </li>
         <li class="list-inline-item float-right mr-2">
           <i class="fas fa-thumbs-up"></i> {{currentPhoto.likes}}
-        </li>
-      </ul>
-    </span>
-    <!-- Begin Favorite Div -->
-    <span
-      class="inline favorite animate"
-      *ngIf="photoSet.length > 0"
-      (click)="addPhotoToArchive()"
-    >
-      <ul class="inline ml-1 mt-1 p-2">
-        <li class="list-inline-item float-right mr-3">
-          <i class="fas fa-star fa-2x"></i>
         </li>
       </ul>
     </span>

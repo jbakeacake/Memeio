@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Memeio.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200608082655_InitialCommit")]
+    [Migration("20200606204716_InitialCommit")]
     partial class InitialCommit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

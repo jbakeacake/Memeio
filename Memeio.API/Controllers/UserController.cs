@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Memeio.API.Controllers
 {
-
+    [Authorize]
     [Route("api/v1/[controller]")]
     [ApiController]
     public class UserController : ControllerBase

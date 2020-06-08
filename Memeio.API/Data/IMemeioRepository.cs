@@ -8,7 +8,6 @@ namespace Memeio.API.Data
     {
         void Add<T>(T entity) where T : class;
         void Delete<T>(T entity) where T : class;
-        void DeleteArchivedWhere(int photoId);
         Task<bool> SaveAll();
         Task<User> GetUser(int id);
         Task<IEnumerable<User>> GetUsers();
@@ -17,9 +16,5 @@ namespace Memeio.API.Data
         Task<IEnumerable<Photo>> GetUserPhotos(int id);
         Task<CommentForProfile> GetUserComment(int id);
         Task<IEnumerable<CommentForProfile>> GetUserComments(int id);
-        Task<ArchivedPhoto> A_GetArchivedPhoto(int id);
-        Task<IEnumerable<ArchivedPhoto>> A_GetArchivedPhotos(int id);
-        Task<IEnumerable<Photo>> P_GetArchivedPhotos(int id);
-        Task<bool> ArchivedExists(int id, int PhotoId);
     }
 }

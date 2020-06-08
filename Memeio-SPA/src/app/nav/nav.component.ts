@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 import { ToasterService } from '../_services/toaster.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { User } from '../_models/user';
 
 @Component({
@@ -12,10 +12,12 @@ import { User } from '../_models/user';
 export class NavComponent implements OnInit {
   users: User[];
 
+  currentActive: ElementRef;
+
   constructor(
     public authService: AuthService,
     private toaster: ToasterService,
-    private router: Router
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {}

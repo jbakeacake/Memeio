@@ -13,10 +13,16 @@ namespace Memeio.API.Models
         public DateTime LastActive { get; set; }
         public string PhotoUrl { get; set; }
         public string Introduction { get; set; }
-        public ICollection<CommentForProfile> Comments { get; set; }
-        public ICollection<ArchivedPhoto> Archived { get; set; }
-        public ICollection<Photo> Posts { get; set; }
+        public virtual ICollection<CommentForProfile> Comments { get; set; }
+        public virtual ICollection<Photo> Posts { get; set; }
+        public virtual ICollection<ArchivedPhoto> Archived { get; set; }
         public int Followers { get; set; }
         public int Follows { get; set; }
+        public User()
+        {
+            this.Comments = new HashSet<CommentForProfile>();
+            this.Posts = new HashSet<Photo>();
+            this.Archived = new HashSet<ArchivedPhoto>();
+        }
     }
 }
