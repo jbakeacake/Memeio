@@ -1,44 +1,43 @@
-<body *ngIf="!loggedIn()" class="container text-center mt-5 p-4 border border-active rounded" style="max-width: 300px; background-color: white;">
-  <form #loginForm="ngForm" class="form-signin" (ngSubmit)="login()">
-    <h1 class="h1 mb-3 font-weight-normal"> Meme.io </h1>
-    <img
-      class="mb-4 rounded"
-      src="https://cdn.dribbble.com/users/1303003/screenshots/3988327/cat-logo.png"
-      alt=""
-      width="72"
-      height="72"
-      style="border: 2px solid lightgray;"
-    />
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <hr>
-    <label for="Username" class="sr-only">Username</label>
-    <input
-      type="text"
-      id="Username"
-      class="form-control mb-2"
-      placeholder="Username"
-      required=""
-      autofocus=""
-      name="username"
-      [(ngModel)]="model.Username"
-    />
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input
-      type="password"
-      id="inputPassword"
-      class="form-control mb-3"
-      placeholder="Password"
-      required=""
-      name="Password"
-      [(ngModel)]="model.Password"
-    />
-    <button class="btn btn-lg btn-block btn-primary rounded-0" type="submit">
-      Sign in
-    </button>
-    <p class="mt-4 text-muted"> Need an account? <span><a class="link" [routerLink]="['/register']">Register</a></span></p>
-    <p class="mt-5 mb-3 text-muted"><i class="fab fa-jedi-order"></i> Jbakeacake 2020</p>
-  </form>
-</body>
-
-
-<p>{{authService.decodedToken?.nameId}}</p>
+<div class="pt-5">
+  <body *ngIf="!loggedIn()" class="container text-center mt-5 p-4 border border-active rounded" style="max-width: 300px; background-color: white;">
+    <form #loginForm="ngForm" class="form-signin" (ngSubmit)="login()">
+      <h1 class="h1 mb-3 font-weight-normal"> Meme.io </h1>
+      <img
+        class="mb-4 rounded"
+        src="https://cdn.dribbble.com/users/1303003/screenshots/3988327/cat-logo.png"
+        alt=""
+        width="72"
+        height="72"
+        style="border: 2px solid lightgray;"
+      />
+      <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+      <hr>
+      <label for="Username" class="sr-only">Username</label>
+      <input
+        type="text"
+        id="Username"
+        class="form-control mb-2"
+        placeholder="Username"
+        required=""
+        autofocus=""
+        name="username"
+        [(ngModel)]="model.Username"
+      />
+      <label for="inputPassword" class="sr-only">Password</label>
+      <input
+        type="password"
+        id="inputPassword"
+        class="form-control mb-3"
+        placeholder="Password"
+        required=""
+        name="Password"
+        [(ngModel)]="model.Password"
+      />
+      <button class="btn btn-lg btn-block btn-primary rounded-0" type="submit">
+        Sign in
+      </button>
+      <p class="mt-4 text-muted"> Need an account? <span><a class="link" [routerLink]="['/register']">Register</a></span></p>
+      <p class="mt-5 mb-3 text-muted"><i class="fab fa-jedi-order"></i> Jbakeacake 2020</p>
+    </form>
+  </body>
+</div>

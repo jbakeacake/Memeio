@@ -65,7 +65,9 @@ namespace Memeio.API.Data
         */
         public async Task<Photo> GetPhoto(int id)
         {
-            var photo = await _context.Photos_Tbl.FirstOrDefaultAsync(p => p.Id == id);
+            var photo = await _context.Photos_Tbl
+                        .Include(p => p.Comments)
+                        .FirstOrDefaultAsync(p => p.Id == id);
             return photo;
         }
 
@@ -83,6 +85,7 @@ namespace Memeio.API.Data
             var photos = await _context.Photos_Tbl
                             .OrderByDescending(p => p.DatePosted)
                             .Take(numRecords)
+                            .Include(p => p.Comments)
                             .ToListAsync();
             return photos;
         }

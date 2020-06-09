@@ -48,6 +48,7 @@ namespace Memeio.API.Helpers
             CreateMap<CommentForProfile, CommentForProfileToReturnDto>();
             CreateMap<CommentForProfile, CommentForProfileDto>();
             CreateMap<CommentForProfileDto, CommentForProfile>();
+            CreateMap<CommentForPostDto, CommentForPost>();
         }
     }
 }

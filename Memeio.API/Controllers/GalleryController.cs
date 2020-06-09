@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Memeio.API.Data;
@@ -10,7 +11,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Memeio.API.Controllers
 {
-    [Authorize]
     [Route("api/v1/[controller]")]
     [ApiController]
     public class GalleryController : ControllerBase
@@ -81,6 +81,25 @@ namespace Memeio.API.Controllers
             }
 
             throw new Exception($"Updating photo {photoId} failed on save");
+        }
+
+        [HttpPost("{id}/addComment")]
+        public async Task<IActionResult> AddPhotoComment(int id, CommentForPostDto commentForPostDto)
+        {
+            var photoFromRepo = await _repo.GetPhoto(id);
+
+            if(photoFromRepo == null)
+                return BadRequest("Photo doesn't exist");
+            commentForPostDto.Author = User.FindFirst(ClaimTypes.Name).Value;
+            commentForPostDto.AuthorId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            commentForPostDto.PostId = id;
+            var comment = _mapper.Map<CommentForPost>(commentForPostDto);
+            photoFromRepo.Comments.Add(comment);
+
+            if(await _repo.SaveAll())
+                return NoContent();
+            
+            return BadRequest("Could not add comment");
         }
     }
 }

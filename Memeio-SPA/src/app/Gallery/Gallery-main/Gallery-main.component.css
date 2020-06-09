@@ -109,3 +109,13 @@ div:focus {
 .fa-star {
     color: yellow;
 }
+
+.background-card {
+    background-color: red;
+    max-width: 31%;
+}
+
+.border-container {
+    border-top: 1px dashed lightgray;
+    border-bottom: 1px dashed lightgray;
+}

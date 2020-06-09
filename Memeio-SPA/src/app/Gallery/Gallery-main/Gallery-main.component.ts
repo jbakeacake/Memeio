@@ -5,15 +5,44 @@ import { GalleryService } from 'src/app/_services/gallery.service';
 import { ToasterService } from 'src/app/_services/toaster.service';
 import { ArchiveService } from 'src/app/_services/archive.service';
 import { AuthService } from 'src/app/_services/auth.service';
+import { state, style, transition, animate, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-Gallery-main',
+  animations: [
+    trigger('isRating', [
+      state('idle', style({
+        opacity: '1'
+      })),
+      state('liking', style({
+        transform: 'matrix(1, 0.3, -0.3, 1, 400, 100)',
+        opacity: 0
+      })),
+      state('disliking', style({
+        transform: 'matrix(1, -0.3, 0.3, 1, -400, 100)',
+        opacity: 0
+      })),
+      transition('idle => liking', [
+        animate('0.3s')
+      ]),
+      transition('idle => disliking', [
+        animate('0.3s')
+      ]),
+      transition('liking => idle', [
+        animate('0.0s')
+      ]),
+      transition('disliking => idle', [
+        animate('0.0s')
+      ])
+    ])
+  ],
   templateUrl: './Gallery-main.component.html',
   styleUrls: ['./Gallery-main.component.css'],
 })
 export class GalleryMainComponent implements OnInit {
   photoSet: Photo[];
   currentPhoto: Photo;
+  currentAnimState: string = 'idle';
 
   constructor(
     private galleryService: GalleryService,
@@ -50,20 +79,40 @@ export class GalleryMainComponent implements OnInit {
     }
 
     if (event.key === 'ArrowRight') {
-      this.galleryService
-        .updateLikeForPhoto(this.currentPhoto.id, this.currentPhoto)
-        .subscribe(() => {
-          this.pop();
-          this.toaster.liked('Liked!');
-        });
+      this.toggleLikeState();
+      setTimeout(() => this.addLike(), 1000);
     } else if (event.key === 'ArrowLeft') {
-      this.galleryService
-        .updateDislikeForPhoto(this.currentPhoto.id, this.currentPhoto)
-        .subscribe(() => {
-          this.toaster.disliked('Disliked!');
-          this.pop();
-        });
+      this.toggleDislikeState();
+      setTimeout(() => this.addDislike(), 1000);
     }
+  }
+
+  addLike() {
+    this.toggleLikeState();
+    this.galleryService
+    .updateLikeForPhoto(this.currentPhoto.id, this.currentPhoto)
+    .subscribe(() => {
+      this.pop();
+      this.toaster.liked('Liked!');
+    });
+  }
+
+  addDislike() {
+    this.toggleDislikeState();
+    this.galleryService
+    .updateDislikeForPhoto(this.currentPhoto.id, this.currentPhoto)
+    .subscribe(() => {
+      this.toaster.disliked('Disliked!');
+      this.pop();
+    });
+  }
+
+  toggleLikeState() {
+    this.currentAnimState = this.currentAnimState === 'idle' ? 'liking' : 'idle';
+  }
+
+  toggleDislikeState() {
+    this.currentAnimState = this.currentAnimState === 'idle' ? 'disliking' : 'idle';
   }
 
   archivePhoto() {

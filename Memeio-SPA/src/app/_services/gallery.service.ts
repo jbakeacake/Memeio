@@ -16,8 +16,8 @@ export class GalleryService {
     return this.http.get<Photo[]>(this.baseUrl);
   }
 
-  updateCommentForPhoto(photoId: number, comment: Comments) {
-    return this.http.put(this.baseUrl + '/' + photoId + '/addcomment', comment);
+  addCommentForPhoto(photoId: number, comment: Comments) {
+    return this.http.post(this.baseUrl + '/' + photoId + '/addcomment', comment);
   }
 
   updateLikeForPhoto(photoId: number, photo: Photo) {

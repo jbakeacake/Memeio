@@ -6,6 +6,11 @@
     }
 }
 
+.fixed-top {
+    margin-bottom: 25px !important;
+    padding-bottom: 0px;
+}
+
 .white-icon {
     color: white;
 }

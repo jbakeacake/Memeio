@@ -1,13 +1,46 @@
-<div class="fade-in card rounded-0 m-1">
-  <div class="card-text">
-    <h5
-      class="btn text-primary p-1"
-      [routerLink]="['/profiles/' + comment.authorId]"
-    >
-      {{ comment.author | titlecase }}
-    </h5>
-    <div class="mx-4 mb-2">
-      {{ comment.content }}
+<div class="card mx-auto mt-3">
+  <form
+    id="commentForm"
+    #CommentForm="ngForm"
+    #CommentForm
+    class="pl-4 my-auto inline"
+    (ngSubmit)="addComment()"
+  >
+    <input
+      class="inline-block"
+      placeholder="Add a Profile Comment..."
+      name="content"
+      [(ngModel)]="model.content"
+      style="width: 75%;"
+    />
+    <div class="list-inline-item">
+      <button
+        type="submit"
+        form="commentForm"
+        class="btn btn-primary rounded-0 ml-5"
+        style="min-width: 100px;"
+      >
+        Post
+      </button>
+    </div>
+  </form>
+</div>
+<div class="card comment-body mx-auto">
+  <div class="card-body">
+    <div class="mt-2 mx-auto" *ngFor="let comment of photo?.comments">
+      <div class="fade-in fade-in comment-card rounded-0 mx-auto">
+        <div class="card-text">
+          <h5
+            class="btn text-primary p-1 ml-1"
+            [routerLink]="['/profiles/' + comment.authorId]"
+          >
+            {{ comment.author | titlecase }}
+          </h5>
+          <div class="mx-4 mb-3">
+            {{ comment.content }}
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
