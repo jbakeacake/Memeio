@@ -22,7 +22,7 @@ This is an that allows users to join a community where users can interact with e
 - [x] Store the actual photos (.png, .jpg, etc.) in a Cloud-Based Storage (e.g. Cloudinary)
 - [x] Store the Urls of each photo on a database
   - [ ] Migrate to MySQL database
-- [ ] UI is optimized for Phone screens
+- [ ] UI is optimized for mobile screens
 
 ## Bonus Features
 
