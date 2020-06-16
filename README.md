@@ -17,23 +17,23 @@ As of now, the current progress for this project has completed all off the check
 *Login Screen*
 
 <a href="Login Screen"><img src="https://res.cloudinary.com/jbakeacake/image/upload/v1592344262/MemeioDemoPics/Login_Screen_klac7j.png" align="left" width="500"></a>
-
+<br/>
 *Gallery Component*
 
 <a href="Gallery Component"><img src="https://res.cloudinary.com/jbakeacake/image/upload/v1592344262/MemeioDemoPics/Gallery_leerdu.png" align="left" width="500"></a>
-
+<br/>
 *Profile Info*
 
 <a href="Profile Info"><img src="https://res.cloudinary.com/jbakeacake/image/upload/v1592344262/MemeioDemoPics/Profile_Info_mxaiax.png" align="left" width="500"></a>
-
+<br/>
 *Profile Posts*
 
 <a href="Profile Posts"><img src="https://res.cloudinary.com/jbakeacake/image/upload/v1592344263/MemeioDemoPics/Profile_Posts_mfcsyc.png" align="left" width="500"></a>
-
+<br/>
 *Photo Upload Component*
 
 <a href="Upload Component"><img src="https://res.cloudinary.com/jbakeacake/image/upload/v1592344262/MemeioDemoPics/Photo_Upload_Success_fyrjz9.png" align="left" width="500"></a>
-
+<br/>
 # Design Outline
 
 ## User Stories
