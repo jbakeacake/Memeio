@@ -12,7 +12,7 @@ Will updating with a quick start solution soon.
 
 ## Current Progress: Basic Functionalities Tested/Completed
 
-As of now, the current progress for this project has completed all off the checked boxes found in the [design outline]() section. You can find some of these features showcased below.
+As of now, the current progress for this project has completed all off the checked boxes found in the [design outline](https://github.com/jbakeacake/Memeio/blob/master/README.md#design-outline) section. You can find some of these features showcased below.
 
 *Login Screen*
 
