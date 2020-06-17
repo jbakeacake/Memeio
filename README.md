@@ -8,7 +8,7 @@ This is an that allows users to join a community where users can interact with e
 
 # Quick Start
 
-Will updating with a quick start solution soon.
+Will update with a quick start solution soon.
 
 ## Current Progress: Basic Functionalities Tested/Completed
 
