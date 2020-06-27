@@ -4,7 +4,7 @@
 
 A simple single-page app to view and rate a collection of memes. Introduction into .NET and Angular frameworks, security (Auth0/JWT), and building an extensive API.
 
-This is an that allows users to join a community where users can interact with each other and their posts. Users can archive each other's photos, like or dislike a photo, and leave a comment on a photo. These posts consist of pictures or memes that a user uploads to be viewed in the main gallery -- a deck of cards style of viewing pictures (think Tinder or IFunny). 
+This is a media app that allows users to join a community where users can interact with each other and their posts. Users can archive each other's photos, like or dislike a photo, and leave a comment on a photo. These posts consist of pictures or memes that a user uploads to be viewed in the main gallery -- a deck of cards style of viewing pictures (think Tinder or IFunny). 
 
 # Quick Start
 
